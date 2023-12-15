@@ -13,7 +13,19 @@ const upload = multer({
   storage: storage
 });
 
-app.use(express.static('public'));
+// set the view engine to ejs
+app.set('view engine', 'ejs')
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static('static'));
+
+// Set up routes
+app.get('/', (req, res) => {
+  res.render('pages/index.ejs');
+});
+
+app.get('/upload', (req, res) => {
+  res.render('pages/upload');
+});
 
 app.post('/upload', upload.single('excelFile'), async (req, res) => {
   try {
