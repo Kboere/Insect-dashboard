@@ -3,14 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../images/fav-icon.png">
   <title>Insect Dashboard</title>
   <link rel="stylesheet" href="style.css">
+   <!----===== Boxicons CSS ===== -->
+   <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
   <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 <body>
-    <h1>Insect Dashboard</h1>
+    <nav class="sidebar close">
+        <header>
+          <div class="image-text">
+            <span class="image">
+              <img src="../images/fav-icon.png" alt="">
+            </span>
+    
+            <div class="text logo-text">
+              <span class="name">Diopsis</span>
+              <!-- <span class="profession">Web developer</span> -->
+            </div>
+          </div>
+    
+          <i class='bx bx-chevron-right toggle'></i>
+        </header>
+    
+        <div class="menu-bar">
+          <div class="menu">
+    
+            <ul class="menu-links">
+              <!-- <li class="nav-link">
+                <a href="../">
+                  <i class='bx bx-home-alt icon'></i>
+                  <span class="text nav-text">Dashboard</span>
+                </a>
+              </li> -->
 
-  <div id="graphContainer"></div>
+              <li class="nav-link">
+                <a href="../upload">
+                  <i class='bx bx-upload icon'></i>
+                  <span class="text nav-text">Upload file</span>
+                </a>
+              </li>
+    
+            </ul>
+          </div>
+    
+          <div class="bottom-content">
+    
+            <li class="mode">
+    
+              <div class="toggle-switch">
+                <span class="switch"></span>
+              </div>
+            </li>
+    
+          </div>
+        </div>
+    
+      </nav>
+    
+      <section class="home">
+        <div class="text">Dashboard Insecten</div>
+      </section>
+    
+
   <script src="script.js"></script>
 </body>
 </html>

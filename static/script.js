@@ -1,31 +1,45 @@
+const body = document.querySelector("body"),
+  sidebar = body.querySelector("nav"),
+  toggle = body.querySelector(".toggle"),
+  searchBtn = body.querySelector(".search-box"),
+  modeSwitch = body.querySelector(".toggle-switch"),
+  modeText = body.querySelector(".mode-text");
+toggle.addEventListener("click", () => {
+  sidebar.classList.toggle("close");
+});
+
+modeSwitch.addEventListener("click", () => {
+  body.classList.toggle("dark");
+});
+
 // Add the submit button event listener
-document.getElementById('submitButton').addEventListener('click', handleSubmit);
+document.getElementById("submitButton").addEventListener("click", handleSubmit);
 
 function handleFile(file) {
   if (file) {
     const formData = new FormData();
-    formData.append('excelFile', file);
+    formData.append("excelFile", file);
 
-    fetch('/upload', {
-      method: 'POST',
+    fetch("/upload", {
+      method: "POST",
       body: formData,
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         // Handle the response data, e.g., update the graph
-        console.log('Server response:', data);
+        console.log("Server response:", data);
         // Add your D3.js visualization code here using the 'data' variable
         createVisualization(data);
       })
-      .catch(error => {
-        console.error('Error uploading file:', error);
+      .catch((error) => {
+        console.error("Error uploading file:", error);
       });
   }
 }
 
 function handleSubmit() {
   // Trigger file upload when the submit button is clicked
-  const fileInput = document.getElementById('excelFileInput');
+  const fileInput = document.getElementById("excelFileInput");
   const file = fileInput.files[0];
   handleFile(file);
 }
