@@ -319,8 +319,8 @@ const addText = (text, y, size) => {
 };
 
 const restOfTheData = () => {
-  // addText(numberWithCommas(total), 0, "30px");
-  addText("This Year", "30px");
+  addText(numberWithCommas(total), 0, "30px");
+  addText("This Year", "20px");
 };
 
 setTimeout(restOfTheData, 1000);
