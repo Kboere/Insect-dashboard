@@ -1,133 +1,313 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="../images/fav-icon.png" />
-    <title>Insect Dashboard - Home</title>
-    <link rel="stylesheet" href="style.css" />
-    <!----===== Boxicons CSS ===== -->
-    <link
-      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
-  </head>
-  <body>
-    <nav class="sidebar">
-      <header>
-        <div class="image-text">
-          <span class="image">
-            <img src="../images/fav-icon.png" alt="" />
-          </span>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/style-map.css">
+        <link rel="stylesheet" href="css/leaflet-css/leaflet.css">
+        <link rel="stylesheet" href="css/leaflet-css/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet-css/fontawesome-all.min.css">
+        <title>Insecten-Dashboard</title>
+        <link rel="icon" type="image/png" href="../images/fav-icon.png" />
+    </head>
 
-          <!-- <div class="text logo-text">
-            <span class="name">Diopsis</span>
-          </div> -->
-        </div>
-      </header>
-
-      <div class="menu-bar">
-        <div class="menu">
-          <ul class="menu-links">
-            <li class="nav-link">
-              <a href="#">
-                <i class="bx bxs-map-pin"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="bottom-content">
-          <li class="mode">
-            <div class="toggle-switch">
-              <span class="switch"></span>
+    <body>
+        <aside>
+            <div id="sidebar-away">
+                <img src="images/arrow-left.png" alt="arrow">
             </div>
-          </li>
+
+            <div class="sidebar-content">
+                <section>
+                    <h1>Insecten-Dashboard</h1>
+                    <p id="region">Provincie</p>
+                    <h2></h2>
+
+                    <svg id="sidebar-svg">
+                        <path class="sidebar-gemeente"></path>
+                    </svg>
+
+                    <div class="gemeente-stats">
+                        <img src="images/surface-icon.svg" alt="surface icon">
+                        <div>
+                            <p>Surface</p>
+                            <p id="surface"></p>
+                        </div>
+                    </div>
+
+                    <div class="gemeente-stats">
+                        <img src="images/population-icon.svg" alt="population icon">
+                        <div>
+                            <p>Population</p>
+                            <p id="population"></p>
+                        </div>
+                    </div>
+
+                    <div class="gemeente-stats">
+                        <img src="images/density-icon.svg" alt="density icon">
+                        <div>
+                            <p>Population density</p>
+                            <p id="density"></p>
+                        </div>
+                    </div>
+
+                    <div class="gemeente-stats">
+                        <img src="images/houses-icon.svg" alt="houses icon">
+                        <div>
+                            <p>Number of houses</p>
+                            <p id="houses"></p>
+                        </div>
+                    </div>
+
+                    <div class="gemeente-stats">
+                        <img src="images/electricity-icon.svg" alt="electricity icon">
+                        <div>
+                            <p>Avg. electricity use</p>
+                            <p id="electricity"></p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="gemeente-stats">
+                        <img src="images/gas-icon.svg" alt="gas icon">
+                        <div>
+                            <p>Avg. natural gas use</p>
+                            <p id="gas"></p>
+                        </div>
+                    </div>
+
+                    <div class="gemeente-stats">
+                        <img src="images/businesses-icon.svg" alt="businesses icon">
+                        <div>
+                            <p>Businesses</p>
+                            <p id="businesses"></p>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="gemeente-stats">
+                        <img src="images/cars-icon.svg" alt="cars icon">
+                        <div>
+                            <p>Amount of cars</p>
+                            <p id="cars"></p>
+                        </div>
+                    </div> -->
+
+                    <p class="more-button"><a href="vergelijken"> vergelijken </a></p> 
+                </section>
+        </aside>
+
+        <aside class="live-sidebar">
+            <h2><span></span><span></span></h2>
+            <p>Energy consumption <span>2018</span></p>
+            <div>
+                <div class="energy-container">
+                    <h3>Solar energy</h3>
+                    <div>
+                        <img src="images/sun-icon.svg" alt="sun icon">
+                        <p><span></span> TJ</p>
+                    </div>
+                </div>
+
+                <div class="energy-container">
+                    <h3>Wind energy</h3>
+                    <div>
+                        <img src="images/wind-icon.svg" alt="wind icon">
+                        <p><span></span> TJ</p>
+                    </div>
+                </div>
+
+                <div class="energy-container">
+                    <h3>Biogas energy</h3>
+                    <div>
+                        <img src="images/biogas-icon.svg" alt="biogas icon">
+                        <p><span></span> TJ</p>
+                    </div>
+                </div>
+
+                <div class="energy-container">
+                    <h3>Grey energy</h3>
+                    <div>
+                        <img src="images/grey-energy-icon.svg" alt="grey energy icon">
+                        <p><span></span> TJ</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3>Solar energy</h3>
+                <svg id="svg-overlay">
+                    <line x1="23" y1="80" x2="70" y2="80" stroke="#37d139" />
+                    <line x1="70" y1="80" x2="118" y2="80" stroke="#37d139" />
+                    <line x1="118" y1="80" x2="166" y2="80" stroke="#37d139" />
+                </svg>
+                <div id="year-progression">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div id="y-axis">
+                    <p>200 TJ</p>
+                    <p>200 TJ</p>
+                    <p>150 TJ</p>
+                    <p>50 TJ</p>
+                    <p>0 TJ</p>
+                </div>
+                <div id="x-axis">
+                    <p>2015</p>
+                    <p>2016</p>
+                    <p>2017</p>
+                    <p>2018</p>
+                </div>
+            </div>
+
+            <div>
+                <h3>Capacity</h3>
+                <div id="complete-bar">
+                    <div id="progress-bar"></div>
+                </div>
+                <p>Total capacity <span>7000* TJ</span></p>
+                <p>Used<span id="totaal-verbruik">7000 TJ</span></p>
+                <p>Left over <span>7000* TJ</span></p>
+            </div>
+        </aside>
+
+        <div id="legenda">
+            <h3>Legenda</h3>
+            <p>Green energy percentage</p>
+            <div class="color-container">
+                <div>
+                    <div class="legenda-color"></div>
+                    <p>none</p>
+                </div>
+
+                <div>
+                    <div class="legenda-color"></div>
+                    <p>5%</p>
+                </div>
+
+                <div>
+                    <div class="legenda-color"></div>
+                    <p>15%</p>
+                </div>
+
+                <div>
+                    <div class="legenda-color"></div>
+                    <p>25%</p>
+                </div>
+
+                <div>
+                    <div class="legenda-color"></div>
+                    <p>35%</p>
+                </div>
+
+                <div>
+                    <div class="legenda-color"></div>
+                    <p>>45%</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </nav>
 
-    <section class="home">
-      <form id="filterForm">
-        <div class="form-field">
-          <span><i class="bx bx-current-location"></i></span>
-          <span>
-            <label for="locationDropdown">Select Location:</label>
-            <select id="locationDropdown">
-              <option value="All">All Locations</option>
-              <% data.forEach(item => { %>
-              <option value="<%= item.location_name %>">
-                <%= item.location_name %>
-              </option>
-              <% }); %>
-            </select>
-          </span>
+        <div class="energy-buttons">
+            <div>
+                <p class="energy-button-text">Diopsis</p>
+                <div class="round-button active-energy">
+                    <img src="images/overview-icon.svg" alt="overview icon">
+                </div>
+            </div>
+
+            <!-- <div>
+                <p class="energy-button-text">Solar energy</p>
+                <div onclick="colorEnergyButton(this)" class="round-button" id="sun">
+                    <img src="images/sun-icon.svg" alt="sun icon">
+                </div>
+            </div>
+
+            <div>
+                <p class="energy-button-text">Wind energy</p>
+                <div onclick="colorEnergyButton(this)" class="round-button" id="wind">
+                    <img src="images/wind-icon.svg" alt="wind icon">
+                </div>
+            </div>
+
+            <div>
+                <p class="energy-button-text">Biogas</p>
+                <div onclick="colorEnergyButton(this)" class="round-button" id="biogas">
+                    <img src="images/biogas-icon.svg" alt="biogas icon">
+                </div>
+            </div> -->
         </div>
 
-        <div class="form-field">
-          <span><i class="bx bx-current-location"></i></span>
-
-          <span>
-            <label for="identificationDropdown">Select Identification:</label>
-            <select id="identificationDropdown">
-              <option value="All">All Identifications</option>
-              <% data.forEach(item => { %>
-              <option value="<%= item.identification_nl %>">
-                <%= item.identification_nl %>
-              </option>
-              <% }); %>
-            </select>
-          </span>
+        <div class="year-selector">
+            <h3>Year</h3>
+            <p onclick="changeYear(this)" class="active-year">2018</p>
+            <p onclick="changeYear(this)">2017</p>
+            <!-- <p onclick="changeYear(this)">2016</p>
+            <p onclick="changeYear(this)">2015</p> -->
         </div>
 
-        <div class="form-field">
-          <button id="updateBtn" type="button">
-            <i class="bx bxs-send"></i>
-          </button>
-        </div>
-      </form>
+        <!-- <section id="tabMenu">
+            <div class="tabBar">
+                <div class="tab">
+                    <a href="./connect.html"><img src="images/teunis-images/connectTab.svg"></a>
+                </div>
+                <div class="tab active">
+                    <img src="images/teunis-images/discoverTab.svg">
+                    <p>Discover</p>
+                 </div>
+                <div class="tab">
+                    <a href="./profile.html"><img src="images/teunis-images/profileTab2.svg"></a>
+                </div>
+            </div>
+        </section> -->
 
-      <div id="chart"></div>
-
-      <div id="tooltip" class="tooltip" style="opacity: 0"></div>
-    </section>
-
-    <section class="sidebarMenu">
-      <div class="biomass">
-        <h3>Biomass Growth 2022</h3>
-
-        <div class="widget">
-          <div id="pie-chart" class="pie-container"></div>
+        <div id="map">
         </div>
 
-        <ul>
-          <li>
-            <span><b>+35%</b></span
-            ><span>Species 1</span>
-          </li>
-          <li>
-            <span><b>+25%</b></span
-            ><span>Species 2</span>
-          </li>
-          <li>
-            <span><b>+40%</b></span
-            ><span>Species 3</span>
-          </li>
-        </ul>
-      </div>
+        <script src="js/generate-color.js"></script>
+        <script src="js/tooltip.js"></script>
+        <script src="js/highlight-layer.js"></script>
+        <script src="js/leaflet-js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet-js/leaflet.js"></script>
+        <script src="js/leaflet-js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet-js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-js/leaflet-hash.js"></script>
+        <script src="js/leaflet-js/Autolinker.min.js"></script>
+        <script src="js/leaflet-js/rbush.min.js"></script>
+        <script src="js/leaflet-js/labelgun.min.js"></script>
+        <script src="js/leaflet-js/labels.js"></script>
+        <script src="data/Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0.js"></script>
+        <script src="js/index.js"></script>
+        <script>
+        
+        var map = L.map('map', {
+            zoomControl:true, minZoom:8, maxZoom:9.5
+        }).fitBounds([[50.105460973125716,2.57418013160256],[54.1218397752703,8.280539894436483]]);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        var hash = new L.Hash(map);
+        map.setZoom(9);
 
-      <div class="grafieken">
-        <h3>Andere grafieken</h3>
-        <ul>
-          <li><i class='bx bxs-bar-chart-alt-2' ></i><span>Grafiek 1</span></li>
-          <li><i class='bx bxs-bar-chart-alt-2' ></i><span>Grafiek 2</span></li>
-          <li><i class='bx bxs-bar-chart-alt-2' ></i><span>Grafiek 3</span></li>
-          <li><i class='bx bxs-bar-chart-alt-2' ></i><span>Grafiek 4</span></li>
-        </ul>
-      </div>
-    </section>
+        map.createPane('pane_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0');
+        map.getPane('pane_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0').style.zIndex = 400;
+        map.getPane('pane_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0').style['mix-blend-mode'] = 'normal';
+        var layer_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0 = new L.geoJson(json_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0',
+            layerName: 'layer_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0',
+            pane: 'pane_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0',
+            onEachFeature: pop_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0,
+            style: style_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0_0,
+        });
+        bounds_group.addLayer(layer_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0);
+        map.addLayer(layer_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0);
+        setBounds();
 
-    <script type="module" src="script.js"></script>
-  </body>
+        console.log(map);
+        </script>
+    </body>
 </html>

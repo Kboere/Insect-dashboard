@@ -23,8 +23,17 @@ app.use(express.static('static'));
 
 app.get('/', (req, res) => {
   try {
+    res.render('pages/index.ejs');
+  } catch (error) {
+    console.error('Error reading JSON file:', error);
+    res.status(500).render('pages/error.ejs', { error });
+  }
+});
+
+app.get('/vergelijken', (req, res) => {
+  try {
     console.log('every item:', data);
-    res.render('pages/index.ejs', { data });
+    res.render('pages/compare.ejs', { data });
   } catch (error) {
     console.error('Error reading JSON file:', error);
     res.status(500).render('pages/error.ejs', { error });

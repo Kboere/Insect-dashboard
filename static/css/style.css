@@ -2,6 +2,7 @@
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
@@ -19,6 +20,16 @@
   --tran-03: all 0.3s ease;
   --tran-04: all 0.3s ease;
   --tran-05: all 0.3s ease;
+}
+
+::selection {
+  color: #fff;
+  background: #6A67F6;
+}
+
+::-moz-selection {
+  color: #fff;
+  background: #6A67F6;
 }
 
 body {
@@ -53,7 +64,7 @@ body.dark {
   top: 0;
   left: 0;
   height: 100%;
-  width: 60px;
+  width: 88px;
   padding: 10px 14px;
   /* background: var(--sidebar-color); */
   transition: var(--tran-05);
