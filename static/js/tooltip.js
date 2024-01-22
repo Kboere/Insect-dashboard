@@ -1,3 +1,22 @@
+// Assuming you have removed the div with id "myDiv"
+var deleteCameraInfo = document.querySelector(".gemeente-stats.camera");
+
+// // Function to remove the div
+// function removeDiv() {
+//     if (deleteCameraInfo) {
+//         deleteCameraInfo.remove();
+//     }
+// }
+
+// Function to show the div
+function showDiv() {
+    // Check if the div already exists
+    if (deleteCameraInfo) {
+        deleteCameraInfo.style.display = "flex";
+    }
+}
+
+
 function pop_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0(feature, layer) {
     layer.on({
         mouseout: function (e) {
@@ -10,6 +29,10 @@ function pop_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0(fea
             }
         },
         mouseover: highlightFeature,
+        click: function (e) {
+            // Show the div when the layer is clicked
+            showDiv();
+        }
     });
 
     let groenPercentage = feature.properties['complete_dataset_groenPercentage/2018'];
@@ -26,10 +49,10 @@ function pop_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0(fea
                     <th scope="row"> Niet aangesloten </th>\
                 </tr>\
                 <tr class="no-display">\
-                    <td colspan="2" id="population-s">' + (feature.properties['complete_dataset_inwoners'] !== null ? autolinker.link(feature.properties['complete_dataset_inwoners'].toLocaleString()) : '') + " inhabitants" + '</td>\
+                    <td colspan="2" id="population-s">' + "Geen data" + '</td>\
                 </tr>\
                 <tr class="no-display">\
-                    <td colspan="2" id="surface-s">' + (feature.properties['complete_dataset_oppervlakteHa'] !== null ? autolinker.link(feature.properties['complete_dataset_oppervlakteHa'].toLocaleString()) : '') + " ha" + '</td>\
+                    <td colspan="2" id="surface-s">' + "Geen data" + '</td>\
                 </tr>\
             </table>';
     } else {
@@ -44,10 +67,10 @@ function pop_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0(fea
                     <td>' + plusSymbol + groenPercentage + energySymbol + '</td>\
                 </tr>\
                 <tr class="no-display">\
-                    <td colspan="2" id="population-s">' + (feature.properties['complete_dataset_inwoners'] !== null ? autolinker.link(feature.properties['complete_dataset_inwoners'].toLocaleString()) : '') + " inhabitants" + '</td>\
+                    <td colspan="2" id="population-s">' + (feature.properties['complete_dataset_aantalInsecten'] !== null ? autolinker.link(feature.properties['complete_dataset_aantalInsecten'].toLocaleString()) : '') + " insecten" + '</td>\
                 </tr>\
                 <tr class="no-display">\
-                    <td colspan="2" id="surface-s">' + (feature.properties['complete_dataset_oppervlakteHa'] !== null ? autolinker.link(feature.properties['complete_dataset_oppervlakteHa'].toLocaleString()) : '') + " ha" + '</td>\
+                    <td colspan="2" id="surface-s">' + (feature.properties['complete_dataset_aantalCamera'] !== null ? autolinker.link(feature.properties['complete_dataset_aantalCamera'].toLocaleString()) : '') + " camera's" + '</td>\
                 </tr>\
             </table>';
     }

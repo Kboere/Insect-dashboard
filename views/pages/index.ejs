@@ -21,6 +21,12 @@
 </head>
 
 <body>
+  <div class="se-pre-con"></div>
+
+  <div id="tooltip">
+    <h1>Gehoverde data:</h1>
+    <p id="tooltip-data"></p>
+  </div>
     <aside>
         <div class="sidebar-content">
             <section>
@@ -46,31 +52,40 @@
                     </div>
                 </div>
 
-                <h2 id="titelSelection">Nederland</h2>
+                <h2 id="titelSelection">Statistieken Nederland 2022</h2>
 
-                <div class="gemeente-stats">
-                    <img src="images/surface-icon.svg" alt="surface icon">
+                <div class="gemeente-stats camera">
+                  <img src="images/camera-svgrepo-com.svg" alt="camera icon">
                     <div>
-                        <p>Totaal aantal camera's</p>
-                        <p id="surface">150 camera's</p>
+                        <p>Totaal aantal geplaatste camera's</p>
+                        <p id="surface">53 camera's</p>
                     </div>
                 </div>
 
                 <div class="gemeente-stats">
-                    <img src="images/population-icon.svg" alt="population icon">
+                    <img src="images/bug-svgrepo-com.svg" alt="insect icon">
                     <div>
-                        <p>Totaal aantal insecten</p>
-                        <p id="population">276.000 insecten</p>
+                        <p>Totaal aantal gemeten insecten</p>
+                        <p id="population">251.000 insecten</p>
                     </div>
                 </div>
 
                 <div class="gemeente-stats">
-                  <img src="images/population-icon.svg" alt="population icon">
+                  <img src="images/chart-simple-svgrepo-com.svg" alt="charts icon">
                   <div>
-                      <p>Meest voorkomende insecten</p>
-                      <div id="stackedChart"></div>
+                      <p>Top 3 meest voorkomende insecten families</p>
+                      <svg id="groupedBarChart" width="400" height="70"></svg>
+                      <!-- <div id="stackedChart"></div> -->
                   </div>
               </div>
+
+              <div class="gemeente-stats">
+                <img src="images/chart-simple-svgrepo-com.svg" alt="charts icon">
+                <div>
+                    <p>Top 10 Meest voorkomende soorten</p>
+                </div>
+            </div>
+
             </section>
 
 
@@ -163,16 +178,8 @@
     <script src="data/Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0.js"></script>
     <script src="js/index.js"></script>
     <script type="module" src="js/charts-map.js"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
 
     <script>
-
-        function togglePage(page) {
-            setTimeout(function () {
-                window.location.href = page;
-            }, 500); // 500 milliseconds delay
-        }
-
         var map = L.map('map', {
             zoomControl: true, minZoom: 7, maxZoom: 11
         }).fitBounds([[50.105460973125716, 2.57418013160256], [54.1218397752703, 8.280539894436483]]);
@@ -181,282 +188,6 @@
         var bounds_group = new L.featureGroup([]);
         var hash = new L.Hash(map);
         map.setZoom(8);
-
-        // Example coordinates for points in the Netherlands
-    var pointCoordinates1 = [52.4736, 4.6674];
-    var pointCoordinates2 = [53.0251, 4.7454];
-    var pointCoordinates3 = [52.4195, 4.5601];
-
-    // Define information for each marker
-    var markerData = {
-        marker1: {
-            naamCamera: `Camera Beverwijk`,
-            aantalCamera: 5,
-            aantalinsecten: 1700,
-            ground: `Stedelijk`,
-            voorkomend: [
-  { name: 'vlinder', value: 20 },
-  { name: 'ratten', value: 10 },
-  { name: 'muizen', value: 10 }
-]
-
-        },
-        marker2: {
-            naamCamera: `Camera Den Hoorn Texel`,
-            aantalCamera: 2,
-            aantalinsecten: 100,
-            ground: `Agrarisch`,
-            voorkomend: [
-  { name: 'vlinder', value: 30 },
-  { name: 'ratten', value: 10 },
-  { name: 'muizen', value: 70 }
-]
-
-        },
-        marker3: {
-            naamCamera: `Camera Overveen Vogelringstation`,
-            aantalCamera: 7,
-            aantalinsecten: 890,
-            ground: `Natuur`,
-            voorkomend: [
-  { name: 'vlinder', value: 50 },
-  { name: 'ratten', value: 10 },
-  { name: 'muizen', value: 30 }
-]
-
-        }
-    };
-
-    // Create markers for the points using createMarker function
-var marker1 = createMarker(pointCoordinates1, "Marker 1: This is a point in the Netherlands", markerData.marker1.ground);
-var marker2 = createMarker(pointCoordinates2, "Marker 2: Another point in the Netherlands", markerData.marker2.ground);
-var marker3 = createMarker(pointCoordinates3, "Marker 3: Yet another point in the Netherlands", markerData.marker3.ground);
-
-// You can also add popups to the markers
-marker1.bindPopup(`<table>
-    <tr>
-        <td colspan="2"><h3 class="gemeente-titel">${markerData.marker1.naamCamera ? `${markerData.marker1.naamCamera}` : ''}</h3></td>
-    </tr>
-    <tr>
-      <th scope="row"> Landschap:</th>
-      <td>${markerData.marker1.ground ? `${markerData.marker1.ground}` : ''}</td>
-    </tr>
-</table>`);
-
-marker2.bindPopup(`<table>
-    <tr>
-        <td colspan="2"><h3 class="gemeente-titel">${markerData.marker2.naamCamera ? `${markerData.marker2.naamCamera}` : ''}</h3></td>
-    </tr>
-    <tr>
-      <th scope="row"> Landschap:</th>
-      <td>${markerData.marker2.ground ? `${markerData.marker2.ground}` : ''}</td>
-    </tr>
-</table>`);
-
-marker3.bindPopup(`<table>
-    <tr>
-        <td colspan="2"><h3 class="gemeente-titel">${markerData.marker3.naamCamera ? `${markerData.marker3.naamCamera}` : ''}</h3></td>
-    </tr>
-    <tr>
-      <th scope="row"> Landschap:</th>
-      <td>${markerData.marker3.ground ? `${markerData.marker3.ground}` : ''}</td>
-    </tr>
-</table>`);
-
-// Function to create markers with custom icons based on the "ground" property
-function createMarker(coordinates, popupContent, ground) {
-    var marker;
-
-    // Check if the "ground" property exists
-    if (ground) {
-        var iconUrl = getIconUrl(ground);
-        var customIcon = L.icon({
-            iconUrl: iconUrl,
-            iconSize: [32, 32],  // adjust the size based on aantalinsecten
-            popupAnchor: [0, -10] // adjust the anchor point as needed
-        });
-
-        marker = L.marker(coordinates, { icon: customIcon });
-    } else {
-        // Create a default marker
-        marker = L.marker(coordinates);
-    }
-
-    marker.addTo(map);
-    marker.bindPopup(popupContent);
-
-    // Attach click event to markers
-    marker.on('click', handleMarkerClick);
-    // Attach hover event to markers
-    marker.on('mouseover', handleMarkerHover);
-    // Attach mouseout event to markers
-    marker.on('mouseout', handleMarkerMouseOut);
-
-    return marker;
-}
-
-// Function to get the icon URL based on the "ground" property
-function getIconUrl(ground) {
-    // Add logic to determine the icon URL based on the ground type
-    switch (ground.toLowerCase()) {
-        case "natuur":
-            return 'images/blueIcon1.svg';
-        case "stedelijk":
-            return 'images/greyIcon1.svg';
-        case "agrarisch":
-            return 'images/purpleIcon1.svg';
-        // Add more cases as needed
-        default:
-            return 'css/leaflet-css/images/marker-icon.png';
-    }
-}
-
-function handleMarkerClick(event) {
-    // Get marker data based on marker's unique ID
-    var markerID = event.target._leaflet_id.toString();
-    var markerInfo = markerData[markerID];
-
-    // Update the sidebar content
-    document.getElementById('titelSelection').innerHTML = markerInfo.naamCamera;
-    document.getElementById('surface').innerHTML = markerInfo.aantalCamera;
-    document.getElementById('population').innerHTML = markerInfo.aantalinsecten;
-
-    // Render stacked bar chart
-    renderStackedBarChart(markerInfo.voorkomend);
-}
-
-// Function to render a horizontal stacked bar chart using D3.js
-function renderStackedBarChart(data) {
-
-  console.log(data);
-
-    // Clear previous chart content
-    d3.select("#stackedChart").html("");
-
-    // Extract keys from the voorkomend property
-    var keys = Object.keys(data[0]);
-
-    // Transpose the data for stacking
-    var transposedData = keys.map(function (key) {
-        return {
-            key: key,
-            values: data.map(function (d) {
-                return { name: key, value: d[key] };
-            }),
-        };
-    });
-
-    // Set up D3.js margin, width, and height
-    var margin = { top: 0, right: 20, bottom: 0, left: 0 },
-        width = 350 - margin.left - margin.right,
-        height = 200 - margin.top - margin.bottom;
-
-    // Create SVG container
-    var svg = d3
-        .select("#stackedChart")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    // Set up D3.js scales
-    var x = d3
-        .scaleLinear()
-        .range([0, width])
-        .domain([0, d3.max(data, function (d) {
-            return d3.sum(keys, function (key) {
-                return d[key];
-            });
-        })])
-        .nice();
-
-    var y = d3
-        .scaleBand()
-        .range([height, 0])
-        .padding(0.1)
-        .domain(data.map(function (d) {
-            return d.name;
-        }));
-
-    // Create and render the horizontal stacked bars
-    svg
-        .selectAll("g")
-        .data(d3.stack().keys(keys)(data))
-        .enter()
-        .append("g")
-        .attr("fill", function (d) {
-            return color(d.key);
-        })
-        .selectAll("rect")
-        .data(function (d) {
-            return d;
-        })
-        .enter()
-        .append("rect")
-        .attr("y", function (d) {
-            return y(d.data.name);
-        })
-        .attr("x", function (d) {
-            return x(d[0]);
-        })
-        .attr("width", function (d) {
-            return x(d[1]) - x(d[0]);
-        })
-        .attr("height", y.bandwidth())
-        .on("mouseover", function (event, d) {
-            // Show tooltip on hover
-            tooltip.transition().duration(200).style("opacity", .9);
-            tooltip.html("Category: " + d.data.name)
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY - 28) + "px");
-        })
-        .on("mouseout", function (d) {
-            // Hide tooltip on mouseout
-            tooltip.transition().duration(500).style("opacity", 0);
-        });
-
-    // Create X-axis
-    svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
-
-    // Create a tooltip
-    var tooltip = d3.select("#stackedChart").append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
-}
-
-
-// Define color scale
-var color = d3.scaleOrdinal(d3.schemeCategory10);
-
-
-    // Set unique IDs for each marker
-    marker1._leaflet_id = 'marker1';
-    marker2._leaflet_id = 'marker2';
-    marker3._leaflet_id = 'marker3';
-
-    // Handle marker hover to show the popup
-    function handleMarkerHover(event) {
-        event.target.openPopup();
-    }
-
-    // Handle marker mouseout to close the popup
-    function handleMarkerMouseOut(event) {
-        event.target.closePopup();
-    }
-
-    // Attach hover event to markers
-    marker1.on('mouseover', handleMarkerHover);
-    marker2.on('mouseover', handleMarkerHover);
-    marker3.on('mouseover', handleMarkerHover);
-
-    // Attach mouseout event to markers
-    marker1.on('mouseout', handleMarkerMouseOut);
-    marker2.on('mouseout', handleMarkerMouseOut);
-    marker3.on('mouseout', handleMarkerMouseOut);
-
 
         map.createPane('pane_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0');
         map.getPane('pane_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0').style.zIndex = 400;
@@ -473,6 +204,200 @@ var color = d3.scaleOrdinal(d3.schemeCategory10);
         bounds_group.addLayer(layer_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0);
         map.addLayer(layer_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0);
         setBounds();
+    </script>
+    <script>
+      var deleteCameraInfo = document.querySelector(".gemeente-stats.camera");
+
+// Example coordinates for points in the Netherlands
+var pointCoordinates1 = [52.4736, 4.6674];
+var pointCoordinates2 = [53.0251, 4.7454];
+var pointCoordinates3 = [52.4195, 4.5601];
+
+// Define information for each marker
+var markerData = {
+  marker1: {
+    naamCamera: `Camera Beverwijk`,
+    aantalinsecten: 1.035,
+    ground: `Stedelijk`,
+    voorkomend: [
+      { name: "vlinder", value: 20 },
+      { name: "ratten", value: 10 },
+      { name: "muizen", value: 10 },
+    ],
+  },
+  marker2: {
+    naamCamera: `Camera Den Hoorn Texel`,
+    aantalinsecten: 2.142,
+    ground: `Agrarisch`,
+    voorkomend: [
+      { name: "vlinder", value: 30 },
+      { name: "ratten", value: 10 },
+      { name: "muizen", value: 70 },
+    ],
+  },
+  marker3: {
+    naamCamera: `Camera Overveen Vogelringstation`,
+    aantalinsecten: 1.091,
+    ground: `Natuur`,
+    voorkomend: [
+      { name: "vlinder", value: 50 },
+      { name: "ratten", value: 10 },
+      { name: "muizen", value: 30 },
+    ],
+  },
+};
+
+// Create markers for the points using createMarker function
+var marker1 = createMarker(
+  pointCoordinates1,
+  "Marker 1: This is a point in the Netherlands",
+  markerData.marker1.ground
+);
+var marker2 = createMarker(
+  pointCoordinates2,
+  "Marker 2: Another point in the Netherlands",
+  markerData.marker2.ground
+);
+var marker3 = createMarker(
+  pointCoordinates3,
+  "Marker 3: Yet another point in the Netherlands",
+  markerData.marker3.ground
+);
+
+// You can also add popups to the markers
+marker1.bindPopup(`<table>
+    <tr>
+        <td colspan="2"><h3 class="gemeente-titel">${
+          markerData.marker1.naamCamera
+            ? `${markerData.marker1.naamCamera}`
+            : ""
+        }</h3></td>
+    </tr>
+    <tr>
+      <th scope="row"> Landschap:</th>
+      <td>${
+        markerData.marker1.ground ? `${markerData.marker1.ground}` : ""
+      }</td>
+    </tr>
+</table>`);
+
+marker2.bindPopup(`<table>
+    <tr>
+        <td colspan="2"><h3 class="gemeente-titel">${
+          markerData.marker2.naamCamera
+            ? `${markerData.marker2.naamCamera}`
+            : ""
+        }</h3></td>
+    </tr>
+    <tr>
+      <th scope="row"> Landschap:</th>
+      <td>${
+        markerData.marker2.ground ? `${markerData.marker2.ground}` : ""
+      }</td>
+    </tr>
+</table>`);
+
+marker3.bindPopup(`<table>
+    <tr>
+        <td colspan="2"><h3 class="gemeente-titel">${
+          markerData.marker3.naamCamera
+            ? `${markerData.marker3.naamCamera}`
+            : ""
+        }</h3></td>
+    </tr>
+    <tr>
+      <th scope="row"> Landschap:</th>
+      <td>${
+        markerData.marker3.ground ? `${markerData.marker3.ground}` : ""
+      }</td>
+    </tr>
+</table>`);
+
+// Function to create markers with custom icons based on the "ground" property
+function createMarker(coordinates, popupContent, ground) {
+  var marker;
+
+  // Check if the "ground" property exists
+  if (ground) {
+    var iconUrl = getIconUrl(ground);
+    var customIcon = L.icon({
+      iconUrl: iconUrl,
+      iconSize: [32, 32], // adjust the size based on aantalinsecten
+      popupAnchor: [0, -10], // adjust the anchor point as needed
+    });
+
+    marker = L.marker(coordinates, { icon: customIcon });
+  } else {
+    // Create a default marker
+    marker = L.marker(coordinates);
+  }
+
+  marker.addTo(map);
+  marker.bindPopup(popupContent);
+
+  // Attach click event to markers
+  marker.on("click", handleMarkerClick);
+  // Attach hover event to markers
+  marker.on("mouseover", handleMarkerHover);
+  // Attach mouseout event to markers
+  marker.on("mouseout", handleMarkerMouseOut);
+
+  return marker;
+}
+
+// Function to get the icon URL based on the "ground" property
+function getIconUrl(ground) {
+  // Add logic to determine the icon URL based on the ground type
+  switch (ground.toLowerCase()) {
+    case "natuur":
+      return "images/blueIcon1.svg";
+    case "stedelijk":
+      return "images/greyIcon1.svg";
+    case "agrarisch":
+      return "images/purpleIcon1.svg";
+    // Add more cases as needed
+    default:
+      return "css/leaflet-css/images/marker-icon.png";
+  }
+}
+
+function handleMarkerClick(event) {
+  // Get marker data based on marker's unique ID
+  var markerID = event.target._leaflet_id.toString();
+  var markerInfo = markerData[markerID];
+
+  deleteCameraInfo.style.display = "none";
+
+  // Update the sidebar content
+  document.getElementById("titelSelection").innerHTML = markerInfo.naamCamera;
+  document.getElementById("population").innerHTML =
+    markerInfo.aantalinsecten + ` insecten`;
+}
+
+// Set unique IDs for each marker
+marker1._leaflet_id = "marker1";
+marker2._leaflet_id = "marker2";
+marker3._leaflet_id = "marker3";
+
+// Handle marker hover to show the popup
+function handleMarkerHover(event) {
+  event.target.openPopup();
+}
+
+// Handle marker mouseout to close the popup
+function handleMarkerMouseOut(event) {
+  event.target.closePopup();
+}
+
+// Attach hover event to markers
+marker1.on("mouseover", handleMarkerHover);
+marker2.on("mouseover", handleMarkerHover);
+marker3.on("mouseover", handleMarkerHover);
+
+// Attach mouseout event to markers
+marker1.on("mouseout", handleMarkerMouseOut);
+marker2.on("mouseout", handleMarkerMouseOut);
+marker3.on("mouseout", handleMarkerMouseOut);
     </script>
 </body>
 
