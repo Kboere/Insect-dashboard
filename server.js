@@ -6,16 +6,16 @@ import fs from 'fs';
 
 dotenv.config();
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const port = process.env.PORT;
 
 // Read the data file and parse it once when the server starts
-// const dataPath = new URL('../Insect-dashboard/static/data/data.json', import.meta.url);
-// const rawData = fs.readFileSync(fileURLToPath(dataPath));
-// const data = JSON.parse(rawData);
+const dataPath = new URL('../Insect-dashboard/static/data/data.json', import.meta.url);
+const rawData = fs.readFileSync(fileURLToPath(dataPath));
+const data = JSON.parse(rawData);
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -40,23 +40,23 @@ app.get('/vergelijken', (req, res) => {
   }
 });
 
-// app.get('/filteredData', (req, res) => {
-//   const selectedLocation = req.query.location;
-//   const selectedIdentification = req.query.identification;
+app.get('/filteredData', (req, res) => {
+  const selectedLocation = req.query.location;
+  const selectedIdentification = req.query.identification;
 
-//   // Implement your logic to filter data based on selectedLocation and selectedIdentification
-//   // Assuming your data is stored in the 'data' variable
-//   const filteredData = data.filter(item => {
-//     return (
-//       (selectedLocation === 'All' || item.location_name === selectedLocation) &&
-//       (selectedIdentification === 'All' || item.identification_nl === selectedIdentification)
-//     );
-//   });
+  // Implement your logic to filter data based on selectedLocation and selectedIdentification
+  // Assuming your data is stored in the 'data' variable
+  const filteredData = data.filter(item => {
+    return (
+      (selectedLocation === 'All' || item.location_name === selectedLocation) &&
+      (selectedIdentification === 'All' || item.identification_nl === selectedIdentification)
+    );
+  });
 
-//   console.log('Filtered Data:', filteredData); // Log the filtered data
+  console.log('Filtered Data:', filteredData); // Log the filtered data
 
-//   res.json(filteredData);
-// });
+  res.json(filteredData);
+});
 
 
 
@@ -64,4 +64,5 @@ app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
 
-// module.exports = app; // Export the Express app
+// Export the Express app
+export default app;
