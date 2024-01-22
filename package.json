@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Dashboard for Naturalis with data using D3.js",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon -e js"
   },
@@ -13,7 +14,6 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "type": "module",
   "license": "MIT",
   "dependencies": {
     "d3": "^7.8.5",
