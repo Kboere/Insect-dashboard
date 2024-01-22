@@ -1,21 +1,18 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const { fileURLToPath } = require('url');
-const { dirname } = require('path');
+const { dirname, join } = require('path');
 const fs = require('fs');
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// Use __filename and __dirname directly without import.meta.url
+const dataPath = join(__dirname, '../Insect-dashboard/static/data/data.json');
+const rawData = fs.readFileSync(dataPath);
+const data = JSON.parse(rawData);
 
 const app = express();
 const port = process.env.PORT;
-
-// Read the data file and parse it once when the server starts
-const dataPath = new URL('../Insect-dashboard/static/data/data.json', import.meta.url);
-const rawData = fs.readFileSync(fileURLToPath(dataPath));
-const data = JSON.parse(rawData);
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
