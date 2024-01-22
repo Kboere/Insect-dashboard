@@ -4,6 +4,18 @@
 	box-sizing: border-box;
 }
 
+:root {
+    --switches-bg-color: #008c38;
+    --switches-label-color: white ;
+    --switch-bg-color: white;
+    --switch-text-color: #008c38 ;
+    --step-0: clamp(1.31rem, calc(1.24rem + 0.37vw), 1.50rem);
+    --black: #23252f;
+     --white: rgb(215, 218, 215);
+   --space-2xs: clamp(0.69rem, calc(0.66rem + 0.12vw), 0.75rem);
+     --space-xs: clamp(1.00rem, calc(0.95rem + 0.24vw), 1.13rem);
+}
+
 ::selection {
   color: #fff;
   background: #6A67F6;
@@ -64,13 +76,21 @@ td:nth-child(2) {
 
 aside,
 #legenda {
-	width: 250px;
+	width: 25%;
 	z-index: 1100;
 	position: absolute;
-	top: 0;
+	/* top: 0; */
 	background: #fff;
 	box-shadow: 5px 5px 10px -4px rgba(0,0,0,0.1);
 }
+
+#legenda{
+	width: 250px;
+}
+
+/* aside.live-sidebar {
+	bottom: 0;
+} */
 
 aside h3 {
 	font-size: 0.9em;
@@ -79,13 +99,12 @@ aside h3 {
 }
 
 aside:nth-of-type(1) {
-	left: -280px;
-	/*left: 0px;*/
+	/* left: -280px; */
+	left: 0px;
 	height: 100%;
 	transition: 0.8s all;
 }
 
-aside:nth-of-type(2),
 #legenda {
 	width: 280px;
 	margin: 50px;
@@ -94,14 +113,14 @@ aside:nth-of-type(2),
 	background-color: rgba(247,247,247, 0.87);
 }
 
-aside:nth-of-type(2) {
+/* aside:nth-of-type(2) {
 	right: -350px;
 	margin-top: 30px;
 	/*right: 0px;*/
-	transition: 0.8s all;
-}
+	/* transition: 0.8s all; */
+/* } */
 
-aside:nth-of-type(2) > div:nth-of-type(2),
+/* aside:nth-of-type(2) > div:nth-of-type(2),
 aside:nth-of-type(2) > div:nth-last-of-type(1),
 aside:nth-of-type(2) > p,
 .energy-container {
@@ -170,9 +189,9 @@ aside:nth-of-type(2) > div:nth-last-of-type(1) p:nth-of-type(3) {
 aside:nth-of-type(2) > div:nth-last-of-type(1) span,
 aside:nth-of-type(2) > p span  {
 	float: right;
-}
+} */
 
-#svg-overlay {
+/* #svg-overlay {
 	position: absolute;
 	width: 74%;
 	top: 44px;
@@ -222,13 +241,12 @@ aside:nth-of-type(2) > p span  {
 	justify-content: space-between;
 	font-size: 0.8em;
 	padding: 0 0 0 4px;
-}
+} */
 
 #legenda {
 	bottom: 0;
 	top: auto;
-	left: 0;
-	height: 80px;
+	right:-20px;
 	background-color: #fff;
 	margin-bottom: 40px;
 	padding: 10px 20px;
@@ -243,11 +261,11 @@ aside:nth-of-type(2) > p span  {
 }
 
 #legenda > p {
-	position: absolute;
-	margin: 13px 20px;
-	font-weight: 400;
-	top: 0;
-	right: 0;
+    position: relative;
+    margin: 10px 0px;
+    font-weight: 800;
+    top: 0;
+    right: 0;
 }
 
 #legenda h3 {
@@ -262,23 +280,33 @@ aside:nth-of-type(2) > p span  {
 }
 
 .color-container > div:nth-of-type(2) .legenda-color {
-	background-color: #baf0c7;
+	background-color: #f9e9007a;
 }
 
 .color-container > div:nth-of-type(3) .legenda-color {
-	background-color: #6ae684;
+	background-color: #f9e90099;
 }
 
 .color-container > div:nth-of-type(4) .legenda-color {
-	background-color: #3add56;
+	background-color: #f9e900c2;
 }
 
 .color-container > div:nth-of-type(5) .legenda-color {
-	background-color: #38d440;
+	background-color: #f9e900;
 }
 
-.color-container > div:nth-of-type(6) .legenda-color {
-	background-color: #30b035;
+
+
+.color-container:nth-of-type(2) > div:nth-of-type(1) .legenda-color {
+	background-color: #60B0BB;
+}
+
+.color-container:nth-of-type(2) > div:nth-of-type(2) .legenda-color {
+	background-color: #931477;
+}
+
+.color-container:nth-of-type(2) > div:nth-of-type(3) .legenda-color {
+	background-color: #A2A2A2;
 }
 
 .legenda-color {
@@ -288,88 +316,44 @@ aside:nth-of-type(2) > p span  {
 	background-color: #ccc;
 }
 
-.energy-container {
-	width: calc(50% - 4px);
-	margin-bottom: 8px;
-	height: 80px;
-}
-
-.energy-container > div {
-	display: flex;
-	flex-direction: row;
-}
-
-.energy-container img {
-	width: 20px;
-	height: 20px;
-	margin: auto 6px auto 0;
-}
-
-.energy-container img:nth-of-type(3) {
-	fill: #ccc;
-}
-
-.energy-container p {
-	font-size: 1.2em;
-	font-weight: 300;
-}
-
-.energy-container h3 {
-	font-weight: 500;
-	font-size: 0.95em;
-	margin-bottom: 10px;
-}
-
-.energy-container span {
-	font-weight: 600;
-}
-
-#complete-bar {
-	width: 100%;
-	height: 25px;
-	border-radius: 50px;
-	box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.1);
-	margin-bottom: 15px;
-}
-
-#progress-bar {
-	width: 50%;
-	height: 100%;
-	border-radius: 50px;
-	background-color: #3BDF5B;
-}
-
 .insecten:hover {
 	stroke-width: 3;
 }
 
 #sidebar-away {
-	height: 40px;
-	width: 30px;
-	border-radius: 0 20px 20px 0;
-	position: absolute;
-	top: 100px;
-	right: -30px;
-	background: #fff;
-	box-shadow: 5px 0px 10px -4px rgba(0,0,0,0.1);
-	cursor: pointer;
+    height: 40px;
+    width: 30px;
+    border-radius: 20px 0px 0px 20px;
+    position: absolute;
+    top: 13px;
+    left: -29px;
+    background: #008c38;
+    box-shadow: -6px 0px 9px 0px rgba(0,0,0,0.1);
+    cursor: pointer;
 }
 
-#sidebar-away img {
-	height: 20px;
-	margin: 10px 0 10px 2px;
+#sidebar-away.active i {
+	transform: rotate(0deg);
 }
 
-.energy-buttons,
+#sidebar-away i {
+	font-size: 20px;
+    color: #fff;
+	margin: 10px 0 10px 10px;
+    transform: rotate(180deg);
+    transition: all 0.9s;
+}
+
+/* .energy-buttons,
 .year-selector {
 	position: absolute;
 	left: 0;
 	z-index: 1100;
 	margin: 30px 50px 40px;
 	transition: 0.8s all;
-}
+} */
 
-.year-selector {
+/* .year-selector {
 	top: 250px;
 	background-color: rgba(255, 255, 255, 0.9);
 	border-radius: 20px;
@@ -398,7 +382,7 @@ aside:nth-of-type(2) > p span  {
 .year-selector p:hover {
 	color: #6A67F6;
 	font-weight: 700;
-}
+} */
 
 .sidebar-content::-webkit-scrollbar {
   display: none;
@@ -462,7 +446,250 @@ aside:nth-of-type(2) > p span  {
 	padding: 10px;
 }
 
-.initiatives {
+section.bottomSearch {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 60px);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.15);
+}
+
+.search {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.searchbar-box6 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.searchbar6 {
+    padding: var(--space-xs);
+    border-radius: 5px;
+    background:#F4F4F4;
+    transition: all 0.9s;
+    border: none;
+    width: 100%;
+}
+
+.searchbar6:focus {
+    outline: none;
+    transition: all .5s;
+}
+
+.searchbar-box6 input::-webkit-input-placeholder {
+    border-radius: 5px;
+    display: block;
+    padding: var(--space-2xs);
+    width: 100%;
+    max-width: 35%;
+    color: var(--black);
+    opacity: 1;
+    position: relative;
+    left: -12px;
+}
+
+.searchbar-box6 input:focus::-webkit-input-placeholder {
+    max-width: 100%;
+}
+
+.searchbar-box6 input:focus .icon6 {
+    color: var(--white);
+}
+
+.icon6 {
+    text-decoration: none;
+    margin-left: 10px;
+    color: var(--white);
+    font-size: 20px;
+    background: #008c38;
+    padding: var(--space-2xs);
+    border-radius: 5px;
+}
+
+.info-aside {
+    position: absolute;
+    z-index: 1200;
+	top: 50px;
+    right: 0px;
+	max-width: 300px;
+    padding-bottom: 20px;
+	background: #fff;
+	box-shadow: -6px 0px 9px 0px rgba(0,0,0,0.1);
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	transition: 0.8s all;
+}
+
+.info-aside h2,
+.info-aside p{
+    padding: 0 20px;
+}
+
+.info-aside h2:first-of-type{
+    width: 100%;
+    padding: 20px;
+    background: #008c38;
+    color: #fff;
+    border-top-left-radius: 10px;
+}
+
+.logo-section {
+    position: relative;
+    display: flex;
+	margin-bottom: 20px;
+}
+
+.logo-section img {
+    height: 60px;
+    margin-right: 15px;
+}
+
+.logo-section div {
+    display: grid;
+}
+
+.logo-section div span:first-of-type{
+	font-size: 25px;
+	color: #008c38;
+}
+
+.logo-section div span:nth-child(2){
+	font-size: 18px;
+	color: #008c38;
+	font-weight: 100;
+}
+
+.switches-container {
+    width: 16rem;
+    position: relative;
+    display: flex;
+    padding: 0;
+    position: relative;
+    background: var(--switches-bg-color);
+    line-height: 3rem;
+    border-radius: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+	margin-bottom: 40px;
+}
+
+/* input (radio) for toggling. hidden - use labels for clicking on */
+.switches-container input {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+}
+
+/* labels for the input (radio) boxes - something to click on */
+.switches-container label {
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    cursor: pointer;
+    color: var(--switches-label-color);
+}
+
+/* switch highlighters wrapper (sliding left / right) 
+    - need wrapper to enable the even margins around the highlight box
+*/
+.switch-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    padding: 0.15rem;
+    z-index: 3;
+    transition: transform .5s cubic-bezier(.77, 0, .175, 1);
+    /* transition: transform 1s; */
+}
+
+/* switch box highlighter */
+.switch {
+    border-radius: 3rem;
+    background: var(--switch-bg-color);
+    height: 100%;
+}
+
+/* switch box labels
+    - default setup
+    - toggle afterwards based on radio:checked status 
+*/
+.switch div {
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    display: block;
+    color: var(--switch-text-color) ;
+    transition: opacity .2s cubic-bezier(.77, 0, .175, 1) .125s;
+    will-change: opacity;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* slide the switch box from right to left */
+.switches-container input:nth-of-type(1):checked~.switch-wrapper {
+    transform: translateX(0%);
+}
+
+/* slide the switch box from left to right */
+.switches-container input:nth-of-type(2):checked~.switch-wrapper {
+    transform: translateX(100%);
+}
+
+/* toggle the switch box labels - first checkbox:checked - show first switch div */
+.switches-container input:nth-of-type(1):checked~.switch-wrapper .switch div:nth-of-type(1) {
+    opacity: 1;
+}
+
+/* toggle the switch box labels - second checkbox:checked - show second switch div */
+.switches-container input:nth-of-type(2):checked~.switch-wrapper .switch div:nth-of-type(2) {
+    opacity: 1;
+}
+
+/* .toggleSwitch {
+	display: flex;
+	justify-content: space-between;
+	width: 200px;
+	margin: 0 auto;
+  }
+
+  .toggleButton {
+	flex-grow: 1;
+	padding: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+  }
+
+  .toggleButton:nth-child(1) {
+	background-color: #3498db;
+	color: #fff;
+  }
+  
+  .toggleButton:nth-child(2) {
+	background-color: #ddd;
+	color: #333;
+  } */
+  
+  /* .toggleButton.active {
+	Styling for the active state
+	background-color: #3498db;
+	color: #fff; 
+  } */
+
+/* .initiatives {
 	display: flex;
 	flex-direction: row;
 	margin-bottom: 10px;
@@ -569,9 +796,9 @@ aside:nth-of-type(2) > p span  {
 	width: 28px;
 	height: 28px;
 	margin: 6px 6px;
-}
+} */
 
-#wind img {
+/* #wind img {
 	width: 25px;
 	height: 25px;
 	margin: 6px 9px;
@@ -580,15 +807,15 @@ aside:nth-of-type(2) > p span  {
 #biogas img {
 	width: 27px;
 	margin: 8px 7px;
-}
+} */
 
-#initiative-title {
+/* #initiative-title {
 	margin: 40px 0 10px;
 	font-size: 1.2em;
-}
+} */
 
 /*------- Classes from Teunis------ */
-#tabMenu {
+/* #tabMenu {
 	z-index: 1100;
     position: absolute;
     bottom: 26px;
@@ -631,21 +858,21 @@ aside:nth-of-type(2) > p span  {
 .active img {
 	margin-top: 3px;
 	filter: invert(37%) sepia(70%) saturate(2530%) hue-rotate(226deg) brightness(101%) contrast(93%);
-}
+} */
 
-.tabBar img {
+/* .tabBar img {
    width: 25px;
    margin-top: 7px;
 }
 
 .tabBar img:hover {
 	filter: brightness(2) saturate(5) hue-rotate(20deg);;
-}
+} */
 
 /*------- End Teunis' classes------ */
 
 /*JS classes*/
-.active-year {
+/* .active-year {
 	background-color: #fff;
 	color: #6A67F6;
 	font-weight: 700;
@@ -660,7 +887,7 @@ aside:nth-of-type(2) > p span  {
 
 .active-energy img {
 	filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(182deg) brightness(158%) contrast(102%);
-}
+} */
 
 .no-display {
 	display: none;

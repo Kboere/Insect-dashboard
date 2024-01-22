@@ -1,295 +1,462 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-        <meta name="mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="css/style-map.css">
-        <link rel="stylesheet" href="css/leaflet-css/leaflet.css">
-        <link rel="stylesheet" href="css/leaflet-css/qgis2web.css">
-        <link rel="stylesheet" href="css/leaflet-css/fontawesome-all.min.css">
-        <title>Insecten-Dashboard</title>
-        <link rel="icon" type="image/png" href="../images/fav-icon.png" />
-    </head>
 
-    <body>
-        <aside>
-            <div id="sidebar-away">
-                <img src="images/arrow-left.png" alt="arrow">
-            </div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="css/style-map.css">
+    <link rel="stylesheet" href="css/leaflet-css/leaflet.css">
+    <link rel="stylesheet" href="css/leaflet-css/qgis2web.css">
+    <link rel="stylesheet" href="css/leaflet-css/fontawesome-all.min.css">
+     <!----===== Boxicons CSS ===== -->
+     <link
+     href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+     rel="stylesheet"
+   />
+    <title>Insecten-Dashboard</title>
+    <link rel="icon" type="image/png" href="../images/fav-icon.png" />
+</head>
 
-            <div class="sidebar-content">
-                <section>
-                    <h1>Insecten-Dashboard</h1>
-                    <p id="region">Provincie</p>
-                    <h2></h2>
+<body>
+    <aside>
+        <div class="sidebar-content">
+            <section>
 
-                    <svg id="sidebar-svg">
-                        <path class="sidebar-gemeente"></path>
-                    </svg>
+                <div class="logo-section">
+                    <span><img src="../images/fav-icon.png" alt="" /></span>
+                    <div>
+                    <span>Diopsis</span>
+                    <span>Insecten dashboard</span>
+                </div>
+                </div>
 
-                    <div class="gemeente-stats">
-                        <img src="images/surface-icon.svg" alt="surface icon">
-                        <div>
-                            <p>Surface</p>
-                            <p id="surface"></p>
+                <div class="switches-container">
+                    <input type="radio" id="switchKaart" name="switchPlan" value="Kaart" checked="checked" />
+                    <input type="radio" id="switchVergelijk" name="switchPlan" value="Vergelijk" />
+                    <label for="switchKaart" onclick="togglePage('kaart.html')">Kaart</label>
+                    <label for="switchVergelijk" onclick="togglePage('vergelijken')">Vergelijk</label>
+                    <div class="switch-wrapper">
+                        <div class="switch">
+                            <div>Kaart</div>
+                            <div>Vergelijk</div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="gemeente-stats">
-                        <img src="images/population-icon.svg" alt="population icon">
-                        <div>
-                            <p>Population</p>
-                            <p id="population"></p>
-                        </div>
+                <h2 id="titelSelection">Nederland</h2>
+
+                <div class="gemeente-stats">
+                    <img src="images/surface-icon.svg" alt="surface icon">
+                    <div>
+                        <p>Totaal aantal camera's</p>
+                        <p id="surface">150 camera's</p>
                     </div>
+                </div>
 
-                    <div class="gemeente-stats">
-                        <img src="images/density-icon.svg" alt="density icon">
-                        <div>
-                            <p>Population density</p>
-                            <p id="density"></p>
-                        </div>
+                <div class="gemeente-stats">
+                    <img src="images/population-icon.svg" alt="population icon">
+                    <div>
+                        <p>Totaal aantal insecten</p>
+                        <p id="population">276.000 insecten</p>
                     </div>
+                </div>
 
-                    <div class="gemeente-stats">
-                        <img src="images/houses-icon.svg" alt="houses icon">
-                        <div>
-                            <p>Number of houses</p>
-                            <p id="houses"></p>
-                        </div>
+                <div class="gemeente-stats">
+                  <img src="images/population-icon.svg" alt="population icon">
+                  <div>
+                      <p>Meest voorkomende insecten</p>
+                      <div id="stackedChart"></div>
+                  </div>
+              </div>
+            </section>
+
+
+            <section class="bottomSearch">
+              <h2>Zoek op insecten soort</h2>
+
+                <form action="/" class="search">
+                    <div class="searchbar-box6">
+                        <input type="search" placeholder="Zoeken..." class="searchbar6">
+                        <a href="#" class="icon6">
+                          <i class='bx bx-search' ></i>
+                        </a>
                     </div>
+                </form>
+            </section>
+    </aside>
 
-                    <div class="gemeente-stats">
-                        <img src="images/electricity-icon.svg" alt="electricity icon">
-                        <div>
-                            <p>Avg. electricity use</p>
-                            <p id="electricity"></p>
-                        </div>
-                    </div>
+    <div class="info-aside">
+        <div id="sidebar-away">
+          <i class='bx bx-chevron-left' ></i>
+        </div>
+        <h2>Hoe werkt het?</h2>
+        <h2>Welkom bij het insecten dashboard van Diopsis.</h2>
+        <p>Gebruik de kaart van Nederland om de details van de insectencamera per gebied te bekijken. Elk gebied wordt per punt aangegeven. Hover over de punten en/of klik op een provincie om specifieke informatie te krijgen.  <br><br>Vergelijk data en variabelen met elkaar door middel van onze ‘vergelijk’ toggle.</p>
+    </div>
 
-                    <!-- <div class="gemeente-stats">
-                        <img src="images/gas-icon.svg" alt="gas icon">
-                        <div>
-                            <p>Avg. natural gas use</p>
-                            <p id="gas"></p>
-                        </div>
-                    </div>
-
-                    <div class="gemeente-stats">
-                        <img src="images/businesses-icon.svg" alt="businesses icon">
-                        <div>
-                            <p>Businesses</p>
-                            <p id="businesses"></p>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="gemeente-stats">
-                        <img src="images/cars-icon.svg" alt="cars icon">
-                        <div>
-                            <p>Amount of cars</p>
-                            <p id="cars"></p>
-                        </div>
-                    </div> -->
-
-                    <p class="more-button"><a href="vergelijken"> vergelijken </a></p> 
-                </section>
-        </aside>
-
-        <aside class="live-sidebar">
-            <h2><span></span><span></span></h2>
-            <p>Energy consumption <span>2018</span></p>
+    <div id="legenda">
+        <h3>Legenda</h3>
+        <p>Biomassa per provincie 2022</p>
+        <div class="color-container">
             <div>
-                <div class="energy-container">
-                    <h3>Solar energy</h3>
-                    <div>
-                        <img src="images/sun-icon.svg" alt="sun icon">
-                        <p><span></span> TJ</p>
-                    </div>
-                </div>
-
-                <div class="energy-container">
-                    <h3>Wind energy</h3>
-                    <div>
-                        <img src="images/wind-icon.svg" alt="wind icon">
-                        <p><span></span> TJ</p>
-                    </div>
-                </div>
-
-                <div class="energy-container">
-                    <h3>Biogas energy</h3>
-                    <div>
-                        <img src="images/biogas-icon.svg" alt="biogas icon">
-                        <p><span></span> TJ</p>
-                    </div>
-                </div>
-
-                <div class="energy-container">
-                    <h3>Grey energy</h3>
-                    <div>
-                        <img src="images/grey-energy-icon.svg" alt="grey energy icon">
-                        <p><span></span> TJ</p>
-                    </div>
-                </div>
+                <div class="legenda-color"></div>
+                <p>geen</p>
             </div>
 
             <div>
-                <h3>Solar energy</h3>
-                <svg id="svg-overlay">
-                    <line x1="23" y1="80" x2="70" y2="80" stroke="#37d139" />
-                    <line x1="70" y1="80" x2="118" y2="80" stroke="#37d139" />
-                    <line x1="118" y1="80" x2="166" y2="80" stroke="#37d139" />
-                </svg>
-                <div id="year-progression">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div id="y-axis">
-                    <p>200 TJ</p>
-                    <p>200 TJ</p>
-                    <p>150 TJ</p>
-                    <p>50 TJ</p>
-                    <p>0 TJ</p>
-                </div>
-                <div id="x-axis">
-                    <p>2015</p>
-                    <p>2016</p>
-                    <p>2017</p>
-                    <p>2018</p>
-                </div>
+                <div class="legenda-color"></div>
+                <p>+5%</p>
             </div>
 
             <div>
-                <h3>Capacity</h3>
-                <div id="complete-bar">
-                    <div id="progress-bar"></div>
-                </div>
-                <p>Total capacity <span>7000* TJ</span></p>
-                <p>Used<span id="totaal-verbruik">7000 TJ</span></p>
-                <p>Left over <span>7000* TJ</span></p>
+                <div class="legenda-color"></div>
+                <p>+10%</p>
             </div>
-        </aside>
 
-        <div id="legenda">
-            <h3>Legenda</h3>
-            <p>Green energy percentage</p>
-            <div class="color-container">
-                <div>
-                    <div class="legenda-color"></div>
-                    <p>none</p>
-                </div>
+            <div>
+                <div class="legenda-color"></div>
+                <p>+15%</p>
+            </div>
 
-                <div>
-                    <div class="legenda-color"></div>
-                    <p>5%</p>
-                </div>
-
-                <div>
-                    <div class="legenda-color"></div>
-                    <p>15%</p>
-                </div>
-
-                <div>
-                    <div class="legenda-color"></div>
-                    <p>25%</p>
-                </div>
-
-                <div>
-                    <div class="legenda-color"></div>
-                    <p>35%</p>
-                </div>
-
-                <div>
-                    <div class="legenda-color"></div>
-                    <p>>45%</p>
-                </div>
+            <div>
+                <div class="legenda-color"></div>
+                <p>+20%</p>
             </div>
         </div>
+        <p>Landschapstype</p>
+        <div class="color-container">
+          <div>
+              <div class="legenda-color"></div>
+              <p>Natuur</p>
+          </div>
 
-        <div class="energy-buttons">
-            <div>
-                <p class="energy-button-text">Diopsis</p>
-                <div class="round-button active-energy">
-                    <img src="images/overview-icon.svg" alt="overview icon">
-                </div>
-            </div>
+          <div>
+              <div class="legenda-color"></div>
+              <p>Agrarisch</p>
+          </div>
 
-            <!-- <div>
-                <p class="energy-button-text">Solar energy</p>
-                <div onclick="colorEnergyButton(this)" class="round-button" id="sun">
-                    <img src="images/sun-icon.svg" alt="sun icon">
-                </div>
-            </div>
+          <div>
+              <div class="legenda-color"></div>
+              <p>Stedelijk</p>
+          </div>
+      </div>
+    </div>
 
-            <div>
-                <p class="energy-button-text">Wind energy</p>
-                <div onclick="colorEnergyButton(this)" class="round-button" id="wind">
-                    <img src="images/wind-icon.svg" alt="wind icon">
-                </div>
-            </div>
+    <div id="map">
+    </div>
 
-            <div>
-                <p class="energy-button-text">Biogas</p>
-                <div onclick="colorEnergyButton(this)" class="round-button" id="biogas">
-                    <img src="images/biogas-icon.svg" alt="biogas icon">
-                </div>
-            </div> -->
-        </div>
+    <script src="js/generate-color.js"></script>
+    <script src="js/tooltip.js"></script>
+    <script src="js/highlight-layer.js"></script>
+    <script src="js/leaflet-js/qgis2web_expressions.js"></script>
+    <script src="js/leaflet-js/leaflet.js"></script>
+    <script src="js/leaflet-js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet-js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-js/leaflet-hash.js"></script>
+    <script src="js/leaflet-js/Autolinker.min.js"></script>
+    <script src="js/leaflet-js/rbush.min.js"></script>
+    <script src="js/leaflet-js/labelgun.min.js"></script>
+    <script src="js/leaflet-js/labels.js"></script>
+    <script src="data/Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0.js"></script>
+    <script src="js/index.js"></script>
+    <script type="module" src="js/charts-map.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 
-        <div class="year-selector">
-            <h3>Year</h3>
-            <p onclick="changeYear(this)" class="active-year">2018</p>
-            <p onclick="changeYear(this)">2017</p>
-            <!-- <p onclick="changeYear(this)">2016</p>
-            <p onclick="changeYear(this)">2015</p> -->
-        </div>
+    <script>
 
-        <!-- <section id="tabMenu">
-            <div class="tabBar">
-                <div class="tab">
-                    <a href="./connect.html"><img src="images/teunis-images/connectTab.svg"></a>
-                </div>
-                <div class="tab active">
-                    <img src="images/teunis-images/discoverTab.svg">
-                    <p>Discover</p>
-                 </div>
-                <div class="tab">
-                    <a href="./profile.html"><img src="images/teunis-images/profileTab2.svg"></a>
-                </div>
-            </div>
-        </section> -->
+        function togglePage(page) {
+            setTimeout(function () {
+                window.location.href = page;
+            }, 500); // 500 milliseconds delay
+        }
 
-        <div id="map">
-        </div>
-
-        <script src="js/generate-color.js"></script>
-        <script src="js/tooltip.js"></script>
-        <script src="js/highlight-layer.js"></script>
-        <script src="js/leaflet-js/qgis2web_expressions.js"></script>
-        <script src="js/leaflet-js/leaflet.js"></script>
-        <script src="js/leaflet-js/leaflet.rotatedMarker.js"></script>
-        <script src="js/leaflet-js/leaflet.pattern.js"></script>
-        <script src="js/leaflet-js/leaflet-hash.js"></script>
-        <script src="js/leaflet-js/Autolinker.min.js"></script>
-        <script src="js/leaflet-js/rbush.min.js"></script>
-        <script src="js/leaflet-js/labelgun.min.js"></script>
-        <script src="js/leaflet-js/labels.js"></script>
-        <script src="data/Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0.js"></script>
-        <script src="js/index.js"></script>
-        <script>
-        
         var map = L.map('map', {
-            zoomControl:true, minZoom:8, maxZoom:9.5
-        }).fitBounds([[50.105460973125716,2.57418013160256],[54.1218397752703,8.280539894436483]]);
+            zoomControl: true, minZoom: 7, maxZoom: 11
+        }).fitBounds([[50.105460973125716, 2.57418013160256], [54.1218397752703, 8.280539894436483]]);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
-        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var autolinker = new Autolinker({ truncate: { length: 30, location: 'smart' } });
         var bounds_group = new L.featureGroup([]);
         var hash = new L.Hash(map);
-        map.setZoom(9);
+        map.setZoom(8);
+
+        // Example coordinates for points in the Netherlands
+    var pointCoordinates1 = [52.4736, 4.6674];
+    var pointCoordinates2 = [53.0251, 4.7454];
+    var pointCoordinates3 = [52.4195, 4.5601];
+
+    // Define information for each marker
+    var markerData = {
+        marker1: {
+            naamCamera: `Camera Beverwijk`,
+            aantalCamera: 5,
+            aantalinsecten: 1700,
+            ground: `Stedelijk`,
+            voorkomend: [
+  { name: 'vlinder', value: 20 },
+  { name: 'ratten', value: 10 },
+  { name: 'muizen', value: 10 }
+]
+
+        },
+        marker2: {
+            naamCamera: `Camera Den Hoorn Texel`,
+            aantalCamera: 2,
+            aantalinsecten: 100,
+            ground: `Agrarisch`,
+            voorkomend: [
+  { name: 'vlinder', value: 30 },
+  { name: 'ratten', value: 10 },
+  { name: 'muizen', value: 70 }
+]
+
+        },
+        marker3: {
+            naamCamera: `Camera Overveen Vogelringstation`,
+            aantalCamera: 7,
+            aantalinsecten: 890,
+            ground: `Natuur`,
+            voorkomend: [
+  { name: 'vlinder', value: 50 },
+  { name: 'ratten', value: 10 },
+  { name: 'muizen', value: 30 }
+]
+
+        }
+    };
+
+    // Create markers for the points using createMarker function
+var marker1 = createMarker(pointCoordinates1, "Marker 1: This is a point in the Netherlands", markerData.marker1.ground);
+var marker2 = createMarker(pointCoordinates2, "Marker 2: Another point in the Netherlands", markerData.marker2.ground);
+var marker3 = createMarker(pointCoordinates3, "Marker 3: Yet another point in the Netherlands", markerData.marker3.ground);
+
+// You can also add popups to the markers
+marker1.bindPopup(`<table>
+    <tr>
+        <td colspan="2"><h3 class="gemeente-titel">${markerData.marker1.naamCamera ? `${markerData.marker1.naamCamera}` : ''}</h3></td>
+    </tr>
+    <tr>
+      <th scope="row"> Landschap:</th>
+      <td>${markerData.marker1.ground ? `${markerData.marker1.ground}` : ''}</td>
+    </tr>
+</table>`);
+
+marker2.bindPopup(`<table>
+    <tr>
+        <td colspan="2"><h3 class="gemeente-titel">${markerData.marker2.naamCamera ? `${markerData.marker2.naamCamera}` : ''}</h3></td>
+    </tr>
+    <tr>
+      <th scope="row"> Landschap:</th>
+      <td>${markerData.marker2.ground ? `${markerData.marker2.ground}` : ''}</td>
+    </tr>
+</table>`);
+
+marker3.bindPopup(`<table>
+    <tr>
+        <td colspan="2"><h3 class="gemeente-titel">${markerData.marker3.naamCamera ? `${markerData.marker3.naamCamera}` : ''}</h3></td>
+    </tr>
+    <tr>
+      <th scope="row"> Landschap:</th>
+      <td>${markerData.marker3.ground ? `${markerData.marker3.ground}` : ''}</td>
+    </tr>
+</table>`);
+
+// Function to create markers with custom icons based on the "ground" property
+function createMarker(coordinates, popupContent, ground) {
+    var marker;
+
+    // Check if the "ground" property exists
+    if (ground) {
+        var iconUrl = getIconUrl(ground);
+        var customIcon = L.icon({
+            iconUrl: iconUrl,
+            iconSize: [32, 32],  // adjust the size based on aantalinsecten
+            popupAnchor: [0, -10] // adjust the anchor point as needed
+        });
+
+        marker = L.marker(coordinates, { icon: customIcon });
+    } else {
+        // Create a default marker
+        marker = L.marker(coordinates);
+    }
+
+    marker.addTo(map);
+    marker.bindPopup(popupContent);
+
+    // Attach click event to markers
+    marker.on('click', handleMarkerClick);
+    // Attach hover event to markers
+    marker.on('mouseover', handleMarkerHover);
+    // Attach mouseout event to markers
+    marker.on('mouseout', handleMarkerMouseOut);
+
+    return marker;
+}
+
+// Function to get the icon URL based on the "ground" property
+function getIconUrl(ground) {
+    // Add logic to determine the icon URL based on the ground type
+    switch (ground.toLowerCase()) {
+        case "natuur":
+            return 'images/blueIcon1.svg';
+        case "stedelijk":
+            return 'images/greyIcon1.svg';
+        case "agrarisch":
+            return 'images/purpleIcon1.svg';
+        // Add more cases as needed
+        default:
+            return 'css/leaflet-css/images/marker-icon.png';
+    }
+}
+
+function handleMarkerClick(event) {
+    // Get marker data based on marker's unique ID
+    var markerID = event.target._leaflet_id.toString();
+    var markerInfo = markerData[markerID];
+
+    // Update the sidebar content
+    document.getElementById('titelSelection').innerHTML = markerInfo.naamCamera;
+    document.getElementById('surface').innerHTML = markerInfo.aantalCamera;
+    document.getElementById('population').innerHTML = markerInfo.aantalinsecten;
+
+    // Render stacked bar chart
+    renderStackedBarChart(markerInfo.voorkomend);
+}
+
+// Function to render a horizontal stacked bar chart using D3.js
+function renderStackedBarChart(data) {
+
+  console.log(data);
+
+    // Clear previous chart content
+    d3.select("#stackedChart").html("");
+
+    // Extract keys from the voorkomend property
+    var keys = Object.keys(data[0]);
+
+    // Transpose the data for stacking
+    var transposedData = keys.map(function (key) {
+        return {
+            key: key,
+            values: data.map(function (d) {
+                return { name: key, value: d[key] };
+            }),
+        };
+    });
+
+    // Set up D3.js margin, width, and height
+    var margin = { top: 0, right: 20, bottom: 0, left: 0 },
+        width = 350 - margin.left - margin.right,
+        height = 200 - margin.top - margin.bottom;
+
+    // Create SVG container
+    var svg = d3
+        .select("#stackedChart")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // Set up D3.js scales
+    var x = d3
+        .scaleLinear()
+        .range([0, width])
+        .domain([0, d3.max(data, function (d) {
+            return d3.sum(keys, function (key) {
+                return d[key];
+            });
+        })])
+        .nice();
+
+    var y = d3
+        .scaleBand()
+        .range([height, 0])
+        .padding(0.1)
+        .domain(data.map(function (d) {
+            return d.name;
+        }));
+
+    // Create and render the horizontal stacked bars
+    svg
+        .selectAll("g")
+        .data(d3.stack().keys(keys)(data))
+        .enter()
+        .append("g")
+        .attr("fill", function (d) {
+            return color(d.key);
+        })
+        .selectAll("rect")
+        .data(function (d) {
+            return d;
+        })
+        .enter()
+        .append("rect")
+        .attr("y", function (d) {
+            return y(d.data.name);
+        })
+        .attr("x", function (d) {
+            return x(d[0]);
+        })
+        .attr("width", function (d) {
+            return x(d[1]) - x(d[0]);
+        })
+        .attr("height", y.bandwidth())
+        .on("mouseover", function (event, d) {
+            // Show tooltip on hover
+            tooltip.transition().duration(200).style("opacity", .9);
+            tooltip.html("Category: " + d.data.name)
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function (d) {
+            // Hide tooltip on mouseout
+            tooltip.transition().duration(500).style("opacity", 0);
+        });
+
+    // Create X-axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // Create a tooltip
+    var tooltip = d3.select("#stackedChart").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+}
+
+
+// Define color scale
+var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+
+    // Set unique IDs for each marker
+    marker1._leaflet_id = 'marker1';
+    marker2._leaflet_id = 'marker2';
+    marker3._leaflet_id = 'marker3';
+
+    // Handle marker hover to show the popup
+    function handleMarkerHover(event) {
+        event.target.openPopup();
+    }
+
+    // Handle marker mouseout to close the popup
+    function handleMarkerMouseOut(event) {
+        event.target.closePopup();
+    }
+
+    // Attach hover event to markers
+    marker1.on('mouseover', handleMarkerHover);
+    marker2.on('mouseover', handleMarkerHover);
+    marker3.on('mouseover', handleMarkerHover);
+
+    // Attach mouseout event to markers
+    marker1.on('mouseout', handleMarkerMouseOut);
+    marker2.on('mouseout', handleMarkerMouseOut);
+    marker3.on('mouseout', handleMarkerMouseOut);
+
 
         map.createPane('pane_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0');
         map.getPane('pane_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0').style.zIndex = 400;
@@ -306,8 +473,7 @@
         bounds_group.addLayer(layer_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0);
         map.addLayer(layer_Gemeentegrenzen_2019shpGemeentegrenzen__voorlopig____kustlijn_0);
         setBounds();
+    </script>
+</body>
 
-        console.log(map);
-        </script>
-    </body>
 </html>
