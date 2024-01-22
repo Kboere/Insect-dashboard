@@ -1,4 +1,4 @@
-# 📊 Het Naturalis insecten dashboard concept
+# Het Naturalis insecten dashboard concept
 Tijdens dit 5 week durende project, hebben we met een groep van 3 personen gewerkt aan een insecten dashboard voor DIOPSIS. Zij vallen onder naturalis en zijn vooral bezig met het onderzoeken hoe de insecten ervoor staan. Hierbij houden ze data bij door middel van een camera en AI. De camera's van DIOPSIS staan op 53 plekken door 6 provincies en met dank aan AI kan er worden gemeten welk soorten/families er op deze plekken zijn. Wij hebben in ons concept via een visuele manier proberen vast te leggen hoe de verschillende eindgebruikers deze data kunnen bekijken
 
 ## 🎯 Features
