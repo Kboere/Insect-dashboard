@@ -6,17 +6,17 @@ const fs = require('fs');
 
 dotenv.config();
 
-// Use __filename and __dirname directly without import.meta.url
-const dataPath = join(__dirname, '../Insect-dashboard/static/data/data.json');
-const rawData = fs.readFileSync(dataPath);
-const data = JSON.parse(rawData);
-
 const app = express();
 const port = process.env.PORT;
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('static'));
+
+// Use __filename and __dirname directly without import.meta.url
+const dataPath = join(__dirname, '/static/data/data.json');
+const rawData = fs.readFileSync(dataPath);
+const data = JSON.parse(rawData);
 
 app.get('/', (req, res) => {
   try {
