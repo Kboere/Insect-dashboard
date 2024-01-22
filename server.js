@@ -1,8 +1,8 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import fs from 'fs';
+const express = require('express');
+const dotenv = require('dotenv');
+const { fileURLToPath } = require('url');
+const { dirname } = require('path');
+const fs = require('fs');
 
 dotenv.config();
 
@@ -58,11 +58,9 @@ app.get('/filteredData', (req, res) => {
   res.json(filteredData);
 });
 
-
-
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
 
 // Export the Express app
-export default app;
+module.exports = app;
