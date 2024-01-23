@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Fetch JSON data on the client side
-  fetch("data/data.json") // Assuming this endpoint returns the necessary data
+  fetch("data/diopsis.json") // Assuming this endpoint returns the necessary data
     .then((response) => response.json())
     .then((data) => {
       // Do something with the data

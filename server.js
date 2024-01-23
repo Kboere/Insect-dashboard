@@ -13,8 +13,17 @@ const app = express();
 const port = process.env.PORT;
 
 // Read the data file and parse it once when the server starts
-const dataPath = new URL('../insectendashboard/static/data/data.json', import.meta.url);
-const rawData = fs.readFileSync(fileURLToPath(dataPath));
+// Constructing the absolute path to 'diopsis.json' based on the current module's URL
+const dataPath = new URL('../insectendashboard/static/data/diopsis.json', import.meta.url);
+const absolutePath = fileURLToPath(dataPath);
+
+// Logging the absolute path for debugging purposes
+console.log('Absolute Path:', absolutePath);
+
+// Reading the file synchronously
+const rawData = fs.readFileSync(absolutePath);
+
+// Parsing the JSON data
 const data = JSON.parse(rawData);
 
 app.set('view engine', 'ejs');
