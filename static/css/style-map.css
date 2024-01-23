@@ -39,7 +39,6 @@
 #tooltip {
     position: absolute;
     width: 200px;
-    /* height: 70px; */
     z-index: 1099;
     top: 0;
     left: 300px;
@@ -68,7 +67,7 @@ body,
     height: 100%;
     padding: 0;
     margin: 0;
-    font-family: 'Roboto', 'sans-serif';
+    font-family: "Avenir", sans-serif;
     color: #24337A;
 }
 
@@ -114,7 +113,6 @@ aside,
 	width: 500px;
 	z-index: 1100;
 	position: absolute;
-	/* top: 0; */
 	background: #fff;
 	box-shadow: 5px 5px 10px -4px rgba(0,0,0,0.1);
 }
@@ -130,7 +128,6 @@ aside h3 {
 }
 
 aside:nth-of-type(1) {
-	/* left: -280px; */
 	left: 0px;
 	height: 100%;
 	transition: 0.8s all;
@@ -255,7 +252,6 @@ aside:nth-of-type(1) {
 	padding: 30px;
 }
 .gemeente-stats {
-	/* height: 55px; */
 	margin: 0 -30px;
 	padding: 10px 25px;
 	display: flex;
@@ -460,9 +456,6 @@ section.bottomSearch {
     color: var(--switches-label-color);
 }
 
-/* switch highlighters wrapper (sliding left / right) 
-    - need wrapper to enable the even margins around the highlight box
-*/
 .switch-wrapper {
     position: absolute;
     top: 0;
@@ -471,20 +464,12 @@ section.bottomSearch {
     padding: 0.15rem;
     z-index: 3;
     transition: transform .5s cubic-bezier(.77, 0, .175, 1);
-    /* transition: transform 1s; */
 }
-
-/* switch box highlighter */
 .switch {
     border-radius: 3rem;
     background: var(--switch-bg-color);
     height: 100%;
 }
-
-/* switch box labels
-    - default setup
-    - toggle afterwards based on radio:checked status 
-*/
 .switch div {
     width: 100%;
     text-align: center;
@@ -502,12 +487,10 @@ section.bottomSearch {
 .switches-container input:nth-of-type(1):checked~.switch-wrapper {
     transform: translateX(0%);
 }
-
 /* slide the switch box from left to right */
 .switches-container input:nth-of-type(2):checked~.switch-wrapper {
     transform: translateX(100%);
 }
-
 /* toggle the switch box labels - first checkbox:checked - show first switch div */
 .switches-container input:nth-of-type(1):checked~.switch-wrapper .switch div:nth-of-type(1) {
     opacity: 1;
@@ -518,238 +501,6 @@ section.bottomSearch {
     opacity: 1;
 }
 
-/* .toggleSwitch {
-	display: flex;
-	justify-content: space-between;
-	width: 200px;
-	margin: 0 auto;
-  }
-
-  .toggleButton {
-	flex-grow: 1;
-	padding: 10px;
-	font-size: 16px;
-	cursor: pointer;
-	border: none;
-	border-radius: 5px;
-  }
-
-  .toggleButton:nth-child(1) {
-	background-color: #3498db;
-	color: #fff;
-  }
-  
-  .toggleButton:nth-child(2) {
-	background-color: #ddd;
-	color: #333;
-  } */
-  
-  /* .toggleButton.active {
-	Styling for the active state
-	background-color: #3498db;
-	color: #fff; 
-  } */
-
-/* .initiatives {
-	display: flex;
-	flex-direction: row;
-	margin-bottom: 10px;
-}
-
-.initiatives p:nth-child(1) {
-	margin: 0;
-	font-size: 0.9em;
-	font-weight: 500;
-}
-
-.initiatives p:nth-child(2) {
-	margin: 2px 0 0 0;
-	color: #6A67F6;
-	font-size: 0.6em;
-	font-weight: 500;
-}
-
-.initiatives img {
-	width: 35px;
-	height: 35px;
-	margin-right: 10px;
-}
-
-.more-button {
-	margin: 20px 10px;
-	text-align: center;
-	border-radius: 100px;
-	border: 3px solid #6A67F6;
-	color: #6A67F6;
-	padding: 8px 0;
-	transition: 0.5s all;
-}
-
-.more-button:hover {
-	background-color: #9694FF;
-	border: 3px solid #9694FF;
-	color: #fff;
-}
-
-.energy-buttons > div {
-	overflow: hidden;
-	height: 40px;
-	border-radius: 50px;
-	margin: 10px 0;
-	position: relative;
-	transition: 0.5s all;
-}
-
-.energy-button-text {
-	position: absolute;
-	width: 160px;
-	text-align: right;
-	padding: 11px 20px 10px;
-	border-radius: 50px;
-	z-index: 1000;
-	transition: 0.3s all;
-	background-color: #9694FF;
-	color: #fff;
-	font-weight: 500;
-	font-size: 1em;
-	left: -120px;
-}
-
-.energy-buttons div:nth-child(1) p {
-	width: 140px;
-}
-
-.energy-buttons div:nth-child(4) p {
-	width: 125px;
-}
-
-.round-button {
-	height: 40px;
-	width: 40px;
-	border-radius: 100px;
-	background-color: #fff;
-	z-index: 1100;
-	cursor: pointer;
-	transition: 0.5s all;
-	position: relative;
-	color: #24337A;
-	z-index: 1001;
-}
-
-.round-button:hover {
-	background-color: #6A67F6;
-}
-
-.round-button:hover img {
-	filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(182deg) brightness(158%) contrast(102%);
-	transition: 0.5s all;
-}
-
-.energy-buttons > div:hover .energy-button-text {
-	left: 0px;
-}
-
-.energy-buttons > div:hover {
-	width: 160px;
-}
-
-.round-button img {
-	width: 28px;
-	height: 28px;
-	margin: 6px 6px;
-} */
-
-/* #wind img {
-	width: 25px;
-	height: 25px;
-	margin: 6px 9px;
-}
-
-#biogas img {
-	width: 27px;
-	margin: 8px 7px;
-} */
-
-/* #initiative-title {
-	margin: 40px 0 10px;
-	font-size: 1.2em;
-} */
-
-/*------- Classes from Teunis------ */
-/* #tabMenu {
-	z-index: 1100;
-    position: absolute;
-    bottom: 26px;
-    height: 50px;
-	right: 40px;
-    background-color: rgba(255, 255, 255, 0);
-    display: flex;
-    margin-top: 50px;
-}
-
-.tabBar {
-    background-color: rgba(247,247,247, 0.87);
-    width: 260px;
-    padding: 5px 20px;
-    max-height: 70px;
-    border-radius: 100px;
-    display: flex;
-    justify-content: space-around;
-    box-shadow: 0px 0px 25px rgba(195, 208, 222, 0.5);
-}
-
-.tab {
-	text-align: center;
-}
-
-.tabBar div.active {
-    background-color: white;
-    border-radius: 100px;
-    padding: 0 15px 0 10px;
-}
-
-.active p {
-    float: right;
-    font-size: 1em;
-    font-weight: 400;
-    color: #6A67F6;
-    margin: 10px 0 auto 10px;
-}
-
-.active img {
-	margin-top: 3px;
-	filter: invert(37%) sepia(70%) saturate(2530%) hue-rotate(226deg) brightness(101%) contrast(93%);
-} */
-
-/* .tabBar img {
-   width: 25px;
-   margin-top: 7px;
-}
-
-.tabBar img:hover {
-	filter: brightness(2) saturate(5) hue-rotate(20deg);;
-} */
-
-/*------- End Teunis' classes------ */
-
-/*JS classes*/
-/* .active-year {
-	background-color: #fff;
-	color: #6A67F6;
-	font-weight: 700;
-	box-shadow: 3px 3px 10px -2px rgba(0,0,0,0.15);
-	transition: 0.8s all;
-}
-
-.active-energy {
-	background-color: #6A67F6;
-	color: #fff;
-}
-
-.active-energy img {
-	filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(182deg) brightness(158%) contrast(102%);
-} */
-
 .no-display {
 	display: none;
 }
@@ -759,25 +510,157 @@ section.bottomSearch {
 	display: none;
 }
 
-/*@media screen and (min-height: 800px) {*/
-/*	#tabMenu {
-    	right: calc(50vw - 80px);
-		z-index: 1100;
-	    position: absolute;
-	    bottom: 40px;
-	    height: 50px;
-	    background-color: rgba(255, 255, 255, 0);
-	    display: flex;
-	    margin-top: 50px;
-	}*/
+/* ---------------------------------------------------COMPARE-PAGE-STYLING--------------------------------------------------- */
 
-/*	#legenda {
-	    left: auto;
-	    right: 0;
-	}*/
+aside.filter-sidebar {
+    width: 450px;
+  }
 
-/*	.year-selector {
-		bottom: 0;
-		top: auto;
-	}*/
-/*}*/
+.home {
+    position: relative;
+    left: 500px;
+    height: 100vh;
+    width: calc(80% - 50px);
+    background-color: var(--body-color);
+    transition: var(--tran-05);
+    padding: 20px;
+  }
+
+  /* ToolTIP styling */
+  .home #tooltip {
+    top: auto;
+    bottom: 0;
+    left: 10px;
+    height: fit-content;
+    width: fit-content;
+    background-color: #008c38;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 10px;
+    color: #fff;
+  }
+  
+  .home #tooltip h3{
+    color: #fff;
+  }
+
+  /* ----------------------Chart-styling----------------------- */
+    
+  #chart {
+    width: calc(100% - 90px);
+    position: relative;
+    border: 2px solid #f2f2f2;
+    border-radius: 6px;
+    top: 20px;
+  }
+  
+  section.no-data {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    height: 290px;
+    align-content: center;
+  }
+  
+  section.no-data h1,
+  section.no-data h3{
+    color: #008c38;
+    font-weight: 400;
+  }
+  
+  section.no-data h1{
+    font-weight: 800;
+  }
+
+    /* ----------------------filter-styling----------------------- */
+
+  #filterForm {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  .form-field {
+    display: grid;
+    width: 100%;
+    margin-bottom: 18px;
+    border: 2px solid #f2f2f2;
+    border-radius: 6px;
+    padding: 12px;
+  }
+  .form-field .accordion i {
+    line-height: 15px;
+    font-size: 15px;
+    padding: 5px;
+    background: #f2f2f2;
+    color: #008c38;
+    border-radius: 6px;
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+  }
+  .form-field button{
+    border: none;
+    background: none;
+  }
+  .form-field button i {
+    line-height: 20px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .form-field span:nth-child(2) {
+    display: grid;
+    margin-left: 15px;
+  }
+  
+  .filter-sidebar .bottomSearch{
+    background-color: #008c38;
+  }
+  
+  section.bottomSearch .form-field {
+    border: none;
+    margin-bottom: 0;
+    padding: 0;
+  }
+  
+  .additional-item{
+    cursor: pointer;
+  }
+  
+  .accordion {
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: all .6s;
+  }
+  
+  .panel {
+    display: none;
+    padding: 10px;
+      border-radius: 0 0 5px 5px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+  
+    .panel span {
+      width: calc(50% - 10px);
+  }
+  
+  .accordion.open {
+    background-color: #fff;
+  }
+
+  #filterSummary {
+    box-shadow: 5px 5px 10px -4px rgba(0,0,0,0.1);
+    /* height: 20px; */
+    width: fit-content;
+    padding: 15px;
+    border-radius: 6px;
+    background: #f2f2f2;
+    opacity: 0;
+  }

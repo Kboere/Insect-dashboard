@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="../images/fav-icon.png" />
-    <title>Insect Dashboard - Home</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <title>Insect Dashboard - Vergelijken</title>
+    <link rel="stylesheet" href="css/style-map.css">
     <!----===== Boxicons CSS ===== -->
     <link
       href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
@@ -13,85 +13,98 @@
     />
   </head>
   <body>
-    <nav class="sidebar">
-      <header>
-        <div class="image-text">
-          <span class="image">
-            <img src="../images/fav-icon.png" alt="" />
-          </span>
+    <aside class="filter-sidebar">
+      <div class="sidebar-content">
+          <section>
 
-          <!-- <div class="text logo-text">
-            <span class="name">Diopsis</span>
-          </div> -->
-        </div>
-      </header>
+              <div class="logo-section">
+                  <span><img src="../images/fav-icon.png" alt="" /></span>
+                  <div>
+                  <span>Diopsis</span>
+                  <span>Insecten dashboard</span>
+              </div>
+              </div>
 
-      <div class="menu-bar">
-        <div class="menu">
-          <ul class="menu-links">
-            <li class="nav-link">
-              <a href="/">
-                <i class="bx bxs-map-pin"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
+              <div class="switches-container">
+                  <input type="radio" id="switchKaart" name="switchPlan" value="Kaart" />
+                  <input type="radio" id="switchVergelijk" name="switchPlan" value="Vergelijk" checked="checked" />
+                  <label for="switchKaart" onclick="togglePage('/')">Kaart</label>
+                  <label for="switchVergelijk" onclick="togglePage('vergelijken')">Vergelijk</label>
+                  <div class="switch-wrapper">
+                      <div class="switch">
+                          <div>Kaart</div>
+                          <div>Vergelijk</div>
+                      </div>
+                  </div>
+              </div>
 
-        <div class="bottom-content">
-          <li class="mode">
-            <div class="toggle-switch">
-              <span class="switch"></span>
+              <h2 id="titelSelection">Selecteren:</h2>
+
+              <form id="filterForm">
+                <div class="form-field">
+
+                  <div class="accordion" onclick="toggleAccordion(this)">Item 1 <span><i class='bx bx-chevron-down' ></i></span></div>
+                  <div class="panel">
+
+                    <span>
+                      <label for="provinceDropdown">Selecteer provincie:</label>
+                      <select id="provinceDropdown">
+                        <option value="All">Alle provincies</option>
+                         </select>
+                    </span>
+
+                  <span>
+                    <label for="locationDropdown">Selecteer Locatie:</label>
+                    <select id="locationDropdown">
+                      <option value="All">Alle Locaties</option>
+                       </select>
+                  </span>
+
+                  <span>
+                    <label for="identificationDropdown">Selecteer Soort:</label>
+                    <select id="identificationDropdown">
+                      <option value="All">Alle soorten</option>
+                       </select>
+                  </span>
+
+                  
+
+                </div>
+                </div>
+        
+                <div class="form-field">
+                  <!-- when clicked on this field, same options as the "item 1" form-field appears -->
+                  <span class="additional-item" onclick="addFilterItem()">+ Voeg nog een item toe</span>
+
+                </div>
+        
+              </form>
+
+          </section>
+
+          <section class="bottomSearch">
+            <div class="form-field">
+              <button id="updateBtn" type="button">
+                <i class="bx bxs-send"></i>
+              </button>
             </div>
-          </li>
-        </div>
-      </div>
-    </nav>
+          </section>
+  </aside>
 
     <section class="home">
-      <form id="filterForm">
-        <div class="form-field">
-          <span><i class="bx bx-current-location"></i></span>
-          <span>
-            <label for="locationDropdown">Select Location:</label>
-            <select id="locationDropdown">
-              <option value="All">All Locations</option>
-              <% data.forEach(item => { %>
-              <option value="<%= item.location_name %>">
-                <%= item.location_name %>
-              </option>
-              <% }); %>
-            </select>
-          </span>
-        </div>
 
-        <div class="form-field">
-          <span><i class="bx bx-current-location"></i></span>
-
-          <span>
-            <label for="identificationDropdown">Select Identification:</label>
-            <select id="identificationDropdown">
-              <option value="All">All Identifications</option>
-              <% data.forEach(item => { %>
-              <option value="<%= item.identification_nl %>">
-                <%= item.identification_nl %>
-              </option>
-              <% }); %>
-            </select>
-          </span>
-        </div>
-
-        <div class="form-field">
-          <button id="updateBtn" type="button">
-            <i class="bx bxs-send"></i>
-          </button>
-        </div>
-      </form>
+      <div id="placeholder" class="placeholder" style="display: none;">
+        <p>No data available for the selected filters.</p>
+      </div>
+  
+      <div id="filterSummary" class="filter-summary">
+      </div>
+      <div id="tooltip" class="tooltip" style="opacity: 0"></div>
 
       <div id="chart"></div>
-
-      <div id="tooltip" class="tooltip" style="opacity: 0"></div>
     </section>
 
     <script type="module" src="js/script-d3.js"></script>
+    <script src="js/filtering.js"></script>
   </body>
 </html>

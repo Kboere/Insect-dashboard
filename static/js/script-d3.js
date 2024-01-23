@@ -3,7 +3,6 @@ import * as d3 from "https://unpkg.com/d3?module";
 
 // Declare variables for chart setup
 const body = document.querySelector("body");
-const modeSwitch = body.querySelector(".toggle-switch");
 
 // Function to aggregate data based on date
 function aggregateData(data) {
@@ -37,9 +36,9 @@ function aggregateData(data) {
 }
 
 // Function to update the chart based on selected values
-function updateChart(selectedLocation, selectedIdentification) {
+function updateChart(selectedLocation, selectedIdentification, selectedProvince) {
   fetch(
-    `/filteredData?location=${selectedLocation}&identification=${selectedIdentification}`
+    `/filteredData?location=${selectedLocation}&identification=${selectedIdentification}&province=${selectedProvince}`
   )
     .then((response) => response.json())
     .then((filteredData) => {
@@ -54,28 +53,31 @@ function updateChart(selectedLocation, selectedIdentification) {
 // Add an event listener to the "Update Chart" button
 document.getElementById("updateBtn").addEventListener("click", function () {
   const selectedLocation = document.getElementById("locationDropdown").value;
-  const selectedIdentification = document.getElementById(
-    "identificationDropdown"
-  ).value;
+  const selectedIdentification = document.getElementById("identificationDropdown").value;
+  const selectedProvince = document.getElementById("provinceDropdown").value
 
-  updateChart(selectedLocation, selectedIdentification);
+  updateChart(selectedLocation, selectedIdentification, selectedProvince);
 });
 
 // Function to create the initial D3.js chart
 function createChart(data) {
+
+  // Check if data is empty
+  if (data.length === 0) {
+    document.getElementById("chart").innerHTML = `<section class="no-data"><h1>Geen data gevonden?</h1><h3>Selecteer eerst uw vergelijkings wensen voordat u de data kunt bekijken</h3></section>`;
+    return;
+  }
+
   data.forEach((d) => {
     try {
       if (d.date && typeof d.date === "string") {
         const [day, month, year] = d.date.split("-");
         d.date = new Date(`${year}-${month}-${day}`);
-        console.log("Parsed date:", d.date);
       }
     } catch (error) {
       console.error("Error processing data:", d, "Error:", error);
     }
   });
-
-  console.log("received data:", data);
 
   // Specify the chart’s dimensions.
   const width = 1800;
@@ -90,8 +92,6 @@ function createChart(data) {
     .scaleTime()
     .domain(d3.extent(data, (d) => d.date))
     .range([marginLeft, width - marginRight]);
-
-  console.log("X Scale Domain:", x.domain());
 
   const y = d3
     .scaleLinear()
@@ -115,17 +115,13 @@ function createChart(data) {
     .x((d) => x(d.date))
     .y((d) => y(d.count));
 
-  console.log("Line generator:", line);
-
   // Create the SVG container.
   const svg = d3
     .create("svg")
     .attr("viewBox", [0, 0, width, height])
     .attr("width", width)
     .attr("height", height)
-    .attr("style", "max-width: 100%; height: auto;");
-
-  console.log("Created SVG container:", svg);
+    .attr("style", "max-width: 90%; height: auto;");
 
   // Create a clip-path with a unique ID.
   const clip = svg
@@ -143,11 +139,9 @@ function createChart(data) {
     .datum(data)
     .attr("clip-path", "url(#clip)")
     .attr("fill", "none")
-    .attr("stroke", "steelblue")
+    .attr("stroke", "#008c38")
     .attr("stroke-width", 1.5)
     .attr("d", line);
-
-  console.log("Created line:", path);
 
   // Append circles for each data point with tooltips
 svg.selectAll("circle")
@@ -157,8 +151,11 @@ svg.selectAll("circle")
 .attr("cx", (d) => x(d.date))
 .attr("cy", (d) => y(d.count))
 .attr("r", 4) // Radius of the circle
-.attr("fill", "steelblue")
-.on("mouseover", (event, d) => showTooltip(event, d))
+.attr("fill", "#008c38")
+.on("mouseover", (event, d) => {
+  showTooltip(event, d);
+  d3.select(event.currentTarget).style("cursor", "pointer");
+})
 .on("mouseout", hideTooltip);
 
 
@@ -200,27 +197,20 @@ fetch("/filteredData")
   })
   .catch((error) => console.error("Error fetching data:", error));
 
-modeSwitch.addEventListener("click", () => {
-  body.classList.toggle("dark");
-});
-
 // Function to show tooltip
 function showTooltip(event, data) {
   const tooltip = d3.select("#tooltip");
-  tooltip.transition().duration(200).style("opacity", 0.9);
+  tooltip.transition().duration(200).style("opacity", 1);
 
-  // Check if data.probability exists before using it
-  const probabilityText = data.object_order_probability !== undefined ? `<br>Probability: ${data.object_order_probability.toFixed(3)}` : '';
-
-  tooltip.html(`Date: ${data.date.toDateString()}<br>${probabilityText}`)
-    .style("left", (event.pageX) + "px")
-    .style("top", (event.pageY - 28) + "px");
+  tooltip.html(`
+  <h3>Wanneer is deze insect gemeten:</h3>
+  Datum: ${data.date ? data.date.toLocaleDateString('nl-NL') : 'N/A'}`);
 }
 
 
 // Function to hide tooltip
 function hideTooltip() {
-  d3.select("#tooltip").transition().duration(500).style("opacity", 0);
+  d3.select("#tooltip").transition().duration(200).style("opacity", 0);
 }
 
 

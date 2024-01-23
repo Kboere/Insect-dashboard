@@ -82,3 +82,68 @@ svg.append('g')
 svg.append('g')
     .attr('transform', 'translate(0,' + svg.attr('height') + ')')
     // .call(d3.axisBottom(xScale));
+
+
+    // set the dimensions and margins of the graph
+const margin = {top: 10, right: 10, bottom: 10, left: 10},
+width = 420 - margin.left - margin.right,
+height = 200 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+const svgTree = d3.select("#treemap")
+.append("svg")
+.attr("width", width + margin.left + margin.right)
+.attr("height", height + margin.top + margin.bottom)
+.append("g")
+.attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+// Define data in JavaScript
+const dataTree = [
+{ name: "Root", parent: "", value: 200 },
+{ name: "A", parent: "Root", value: 200 },
+{ name: "1", parent: "A", value: 50 },
+{ name: "2", parent: "A", value: 20 },
+{ name: "3", parent: "A", value: 35 },
+{ name: "4", parent: "A", value: 65 },
+{ name: "5", parent: "A", value: 30 },
+];
+
+// stratify the data: reformatting for d3.js
+const root = d3.stratify()
+.id(function(d) { return d.name; })
+.parentId(function(d) { return d.parent; })
+(dataTree);
+
+root.sum(function(d) { return +d.value });
+
+d3.treemap()
+.size([width, height])
+.padding(2)
+(root);
+
+// use this information to add rectangles:
+svgTree.selectAll("rect")
+.data(root.leaves())
+.join("rect")
+  .attr('x', function (d) { return d.x0; })
+  .attr('y', function (d) { return d.y0; })
+  .attr('width', function (d) { return d.x1 - d.x0; })
+  .attr('height', function (d) { return d.y1 - d.y0; })
+  .style("fill", "#008c38")
+  .on("mouseover", function (event, d) {
+    tooltip.attr("class", "active")
+    tooltip.html(`<h3> Top ${d.data.name}:</h3> <p>${d.data.value}x gemeten`)
+})
+.on("mouseout", function (d) {
+    tooltip.attr("class" , "")
+});
+
+// and to add the text labels
+svgTree.selectAll("text")
+.data(root.leaves())
+.join("text")
+  .attr("x", function(d){ return d.x0+10})
+  .attr("y", function(d){ return d.y0+20})
+  .text(function(d){ return d.data.name})
+  .attr("font-size", "15px")
+  .attr("fill", "white");
