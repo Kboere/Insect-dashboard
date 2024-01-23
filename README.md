@@ -26,6 +26,18 @@ Nadat je dit hebt gedaan is het noodzakelijk om alle **NPM Packages** te downloa
 ```
 $ npm install (naam van package)
 ```
+#### .env file aanmaken
+
+Het is belangrijk dat je een .env file aanmaakt. Hier in staat namelijk een "geheime" code die je gaat aanmaken zodat (in dit geval nodemeon) ziet op welke localhost port de websote te zien zal zijn.
+
+in het .env file zet je vervolgens het volgende:
+
+```
+PORT=3000
+
+// dit mag ook een ander getal zijn!
+```
+
 ### Developing
 
 Nadat je alles hebt geinstallerd en gedownload kun je een "development server" aanmaken, doe doe je op deze manier in je Terminal:
