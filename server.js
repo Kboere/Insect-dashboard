@@ -13,7 +13,7 @@ const app = express();
 const port = process.env.PORT;
 
 // Read the data file and parse it once when the server starts
-const dataPath = new URL('../Insect-dashboard/static/data/data.json', import.meta.url);
+const dataPath = new URL('../insectendashboard/static/data/data.json', import.meta.url);
 const rawData = fs.readFileSync(fileURLToPath(dataPath));
 const data = JSON.parse(rawData);
 
