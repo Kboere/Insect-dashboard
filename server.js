@@ -1,10 +1,12 @@
 import express from 'express';
-import dotenv from 'dotenv';
+
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import fs from 'fs';
 
+import dotenv from 'dotenv';
 dotenv.config();
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,11 +22,13 @@ const absolutePath = fileURLToPath(dataPath);
 // Logging the absolute path for debugging purposes
 console.log('Absolute Path:', absolutePath);
 
-// Reading the file synchronously
-const rawData = fs.readFileSync(absolutePath);
+try {
+  const rawData = fs.readFileSync(absolutePath);
+  const data = JSON.parse(rawData);
+} catch (error) {
+  console.error('Fout bij het lezen of parseren van het bestand:', error);
+}
 
-// Parsing the JSON data
-const data = JSON.parse(rawData);
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
