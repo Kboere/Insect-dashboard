@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 // import { dirname } from 'path';
 // import fs from 'fs';
 
-import { insectenData } from '../insectendashboard/static/data/diopsis.js';
+import { insectenData } from './static/data/diopsis.js';
 
 dotenv.config();
 
