@@ -1,4 +1,4 @@
-[
+export const insectenData = [
   {
     "sensor_nr": 287,
     "location_name": "Lelystad",
@@ -126489,4 +126489,6 @@
     "identification_nl": "Vliegen-en-muggen",
     "object_order_probability": 0.7552351951599121
   }
-]
+];
+
+export default insectenData;

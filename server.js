@@ -1,34 +1,23 @@
 import express from 'express';
-
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import fs from 'fs';
-
 import dotenv from 'dotenv';
+// import { fileURLToPath } from 'url';
+// import { dirname } from 'path';
+// import fs from 'fs';
+
+import { insectenData } from '../insectendashboard/static/data/diopsis.js';
+
 dotenv.config();
 
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
 const app = express();
 const port = process.env.PORT;
 
 // Read the data file and parse it once when the server starts
-// Constructing the absolute path to 'diopsis.json' based on the current module's URL
-const dataPath = new URL('../insectendashboard/static/data/diopsis.json', import.meta.url);
-const absolutePath = fileURLToPath(dataPath);
-
-// Logging the absolute path for debugging purposes
-console.log('Absolute Path:', absolutePath);
-
-try {
-  const rawData = fs.readFileSync(absolutePath);
-  const data = JSON.parse(rawData);
-} catch (error) {
-  console.error('Fout bij het lezen of parseren van het bestand:', error);
-}
-
+// const dataPath = new URL('../insectendashboard/static/data/diopsis.json', import.meta.url);
+// const rawData = fs.readFileSync(fileURLToPath(dataPath));
+// const data = JSON.parse(rawData);
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -60,7 +49,7 @@ app.get('/filteredData', (req, res) => {
 
   // Implement your logic to filter data based on selectedLocation and selectedIdentification
   // Assuming your data is stored in the 'data' variable
- const filteredData = data.filter(item => {
+ const filteredData = insectenData.filter(item => {
     return (
       (selectedLocation === 'All' || item.location_name === selectedLocation) &&
       (selectedIdentification === 'All' || item.identification_nl === selectedIdentification) &&

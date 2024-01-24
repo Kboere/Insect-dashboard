@@ -105,6 +105,33 @@
     </section>
 
     <script type="module" src="js/script-d3.js"></script>
-    <script src="js/filtering.js"></script>
+    <script type="module" src="js/filtering.js"></script>
+    <script>
+      function togglePage(page) {
+  setTimeout(function () {
+    window.location.href = page;
+  }, 500); // 500 milliseconds delay
+}
+
+function toggleAccordion(accordion) {
+  accordion.classList.toggle('open');
+  var panel = accordion.nextElementSibling;
+  if (panel.style.display === 'flex') {
+    panel.style.display = 'none';
+  } else {
+    panel.style.display = 'flex';
+  }
+}
+
+function addFilterItem() {
+  var formField = document.querySelector('.form-field');
+  var newItem = formField.cloneNode(true);
+  var itemCount = document.querySelectorAll('.form-field').length + 1;
+  var newId = 'item' + itemCount;
+  newItem.id = newId;
+  newItem.querySelector('.accordion').textContent = 'Item ' + itemCount;
+  formField.parentNode.insertBefore(newItem, formField.nextSibling);
+}
+    </script>
   </body>
 </html>
