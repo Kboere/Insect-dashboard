@@ -1,23 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
-// import { fileURLToPath } from 'url';
-// import { dirname } from 'path';
-// import fs from 'fs';
 
 import { insectenData } from './static/data/diopsis.js';
 
 dotenv.config();
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-
 const app = express();
 const port = process.env.PORT;
-
-// Read the data file and parse it once when the server starts
-// const dataPath = new URL('../insectendashboard/static/data/diopsis.json', import.meta.url);
-// const rawData = fs.readFileSync(fileURLToPath(dataPath));
-// const data = JSON.parse(rawData);
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -34,7 +23,6 @@ app.get('/', (req, res) => {
 
 app.get('/vergelijken', (req, res) => {
   try {
-    // console.log('every item:', data);
     res.render('pages/compare.ejs');
   } catch (error) {
     console.error('Error reading JSON file:', error);
@@ -47,8 +35,8 @@ app.get('/filteredData', (req, res) => {
   const selectedLocation = req.query.location;
   const selectedIdentification = req.query.identification;
 
-  // Implement your logic to filter data based on selectedLocation and selectedIdentification
-  // Assuming your data is stored in the 'data' variable
+  // Implement your logic to filter data based on selectedLocation and selectedIdentification or more
+  // Assuming your data is stored in the 'insectenData' variable
  const filteredData = insectenData.filter(item => {
     return (
       (selectedLocation === 'All' || item.location_name === selectedLocation) &&
@@ -61,8 +49,6 @@ app.get('/filteredData', (req, res) => {
 
  res.json(filteredData);
 });
-
-
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
