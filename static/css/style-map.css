@@ -33,7 +33,8 @@
 	width: 100%;
 	height: 100%;
 	z-index: 9999;
-	background: url(http://smallenvelop.com/demo/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
+	background: url(../images/loading.gif) center no-repeat #fff;
+  background-size: 20%;
 }
 
 #tooltip {
